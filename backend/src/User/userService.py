@@ -35,3 +35,26 @@ def addUser(request):
         print(ex)
         data["Status"] = "Failed"
         return data
+
+def authUser(request):
+    try:
+        data = {}
+        usrLoginName = request.GET.get('usrLoginName')
+        usrPassword = request.GET.get('usrPassword')
+        if User.objects.filter(usrLoginName=usrLoginName, usrPassword=usrPassword).exists() == True:
+            currentUserModel = User.objects.get(usrLoginName=usrLoginName, usrPassword=usrPassword)
+            data["usrId"] = currentUserModel.usrId
+            data["usrLoginName"] = currentUserModel.usrLoginName
+            data["usrPassword"] = currentUserModel.usrPassword
+            data["usrFirstName"] = currentUserModel.usrFirstName
+            data["usrEmailId"] = currentUserModel.usrEmailId
+            data["usrLastName"] =currentUserModel.usrLastName
+            return data
+        else:
+            data["Status"] = "Failed"
+            return data
+    except Exception as ex:
+        print("[EXCEPTION] Add User Service : ")
+        print(ex)
+        data["Status"] = "Failed"
+        return data

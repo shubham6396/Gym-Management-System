@@ -49,7 +49,7 @@ const [form] = Form.useForm();
 const handleLogin = values => {
             console.log('Received values of form: ', values);
 
-            axios.get('http://127.0.0.1:8000/user/addUser/?usrId='+'&usrLoginName='+values.username+'&usrPassword='+values.password)
+            axios.get('http://127.0.0.1:8000/user/authUser/?usrId='+'&usrLoginName='+values.username+'&usrPassword='+values.password)
             .then(res => console.log(res)).catch(error => console.error(error));
         };
 
