@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    usrId = models.AutoField(primary_key=True, db_column="USR_ID")
+    usrId = models.AutoField(primary_key=True, db_column="USR_ID", unique=True)
     usrFirstName = models.CharField(max_length=100, db_column="USR_FIRST_NAME")
     usrLastName = models.CharField(max_length=100, db_column="USR_LAST_NAME")
     usrLoginName = models.CharField(max_length=324, db_column="USR_LOGIN_NAME")
