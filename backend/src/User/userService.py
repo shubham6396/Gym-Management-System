@@ -3,7 +3,11 @@ import json
 from datetime import datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
+
 #Change Add user method
+
+
 def addUser(request):
     try:
         data = {}
