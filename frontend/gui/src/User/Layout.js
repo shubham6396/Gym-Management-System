@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, Menu, Breadcrumb } from 'antd';
+import {Link} from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,8 +15,8 @@ const MainLayout = (props) => {
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1">Login</Menu.Item>
-                <Menu.Item key="2">Dashboard</Menu.Item>
+                <Menu.Item key="1"><Link to='/login/'>Login</Link></Menu.Item>
+                <Menu.Item key="2"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
                 <Menu.Item key="3">Settings</Menu.Item>
               </Menu>
             </Header>
@@ -27,7 +28,7 @@ const MainLayout = (props) => {
               </Breadcrumb>
               <div className="site-layout-content">{props.children}</div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}></Footer>
           </Layout>
         )
 }
