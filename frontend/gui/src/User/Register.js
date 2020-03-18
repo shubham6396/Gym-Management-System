@@ -55,19 +55,18 @@ const [form] = Form.useForm();
 
 const onFinish = values => {
             console.log('Received values of form: ', values);
+        try{
+                const response = axios.get('http://127.0.0.1:8000/user/addUser/?usrId='+values.id+'&usrFirstName='+values.first+'&usrLastName='
+                    +values.last+'&usrLoginName='+values.username+'&usrPassword='+values.password+'&usrEmailId='+values.email+
+                    '&usrContact='+values.phone);
+                     console.log(response);
+            }
+            catch (error) {
+    console.error(error);
+  }
 
-            axios.post('http://127.0.0.1:8000/user/addUser/',{
-                usrId: values.id,
-                usrFirstName: values.first,
-                usrLastName: values.last,
-                usrLoginName: values.username,
-                usrPassword: values.password,
-                usrEmailId: values.email,
-                usrContact: values.phone
-            }).then(res => console.log(res)).catch(error => console.error(error));
+
         };
-
-
 const prefixSelector = (
             <Form.Item name="prefix" noStyle>
                 <Select
