@@ -1,15 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-
-
-
-import RegisterView from "./User/RegisterView";
+import LoginForm from "./User/Login";
+import RegistrationForm from "./User/Register";
 
 const BaseRouter = () => (
   <div>
 
-    <Route exact path="/register/" component={RegisterView} />{" "}
+    <Route exact path="/register/" component={RegistrationForm} />{" "},
+    <Route exact path="/login/" component={LoginForm}/>{" "}
   </div>
 );
 

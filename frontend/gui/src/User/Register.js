@@ -53,7 +53,7 @@ const RegistrationForm = () => {
 
 const [form] = Form.useForm();
 
-const onFinish = values => {
+const handleRegister = values => {
             console.log('Received values of form: ', values);
 
             axios.get('http://127.0.0.1:8000/user/addUser/?usrId='+values.id+'&usrFirstName='+values.first+'&usrLastName='
@@ -96,7 +96,7 @@ const prefixSelector = (
             {...formItemLayout}
             form={form}
             name="register"
-            onFinish={onFinish}
+            onFinish={handleRegister}
 
             initialValues={{
               prefix: '1',
@@ -242,16 +242,15 @@ const prefixSelector = (
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
+
+            <Link
+
+               to='/login/'> Login
+            </Link>
+              {'    '}or{'    '}
             <Button type="primary" htmlType="submit">
               Register
             </Button>
-              {'    '}or{'    '}
-
-
-            <Link
-               style={{marginRight: '10px'}}
-               to='/signup/'> Login
-            </Link>
           </Form.Item>
         </Form>
     );
