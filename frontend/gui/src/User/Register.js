@@ -12,7 +12,7 @@ import {
   Button,
   AutoComplete,
 } from 'antd';
-
+import { Link, NavLink } from 'react-router-dom';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -250,6 +250,13 @@ const prefixSelector = (
             <Button type="primary" htmlType="submit">
               Register
             </Button>
+              {'    '}or{'    '}
+
+
+            <Link
+               style={{marginRight: '10px'}}
+               to='/signup/'> Login
+            </Link>
           </Form.Item>
         </Form>
     );
