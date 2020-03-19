@@ -15,7 +15,13 @@ const MainLayout = (props) => {
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1"><Link to='/login/'>Login</Link></Menu.Item>
+                {
+                      props.isAuthenticated ?
+                      <Menu.Item key="1"><Link to='/'>Logout</Link></Menu.Item>
+                      :
+                      <Menu.Item key="1"><Link to='/login/'>Login</Link></Menu.Item>
+                }
+
                 <Menu.Item key="2"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
                 <Menu.Item key="3">Settings</Menu.Item>
               </Menu>
