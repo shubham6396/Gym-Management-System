@@ -1,42 +1,85 @@
 import React from "react";
 import { Layout, Menu, Breadcrumb } from 'antd';
-import {Link} from "react-router-dom";
-
+import {Link, withRouter} from "react-router-dom";
+import { connect } from 'react-redux';
+import * as actions from "./store/Actions/AuthorizeUser";
 const { Header, Content, Footer } = Layout;
 
-const MainLayout = (props) => {
-    return(
-          <Layout className="layout">
-            <Header>
-              <div className="logo" />
-              <Menu
-                theme="dark"
-                mode="horizontal"
-                defaultSelectedKeys={['1']}
-                style={{ lineHeight: '64px' }}
-              >
-                {
-                      props.isAuthenticated ?
-                      <Menu.Item key="1"><Link to='/'>Logout</Link></Menu.Item>
-                      :
-                      <Menu.Item key="1"><Link to='/login/'>Login</Link></Menu.Item>
-                }
+class MainLayout extends React.Component {
 
-                <Menu.Item key="2"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
-                <Menu.Item key="3">Settings</Menu.Item>
-              </Menu>
-            </Header>
-            <Content style={{ padding: '0 50px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-              </Breadcrumb>
-              <div className="site-layout-content">{props.children}</div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}></Footer>
-          </Layout>
+    state ={
+        current: '1'
+    }
+
+
+    render() {
+        return (
+
+            <Layout className="layout">
+                <Header>
+                    <div className="logo"/>
+                    <Menu
+                        className="main-menu"
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['1']}
+                        style={{lineHeight: '64px'}}
+
+                    >
+                        {
+                            this.props.isAuthenticated ?
+                                <Menu.Item  key="1" ><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
+                                :
+                                <Menu.Item key="1"><Link to='/'>Login</Link></Menu.Item>
+                        }
+                        {
+
+                            this.props.isAuthenticated ?
+                                <Menu.Item key="2">Profile</Menu.Item>
+                                :
+                                <span/>
+
+                        }
+                        {
+
+                            this.props.isAuthenticated ?
+                                <Menu.Item onClick={this.props.logout}>Logout</Menu.Item>
+                                :
+                                <span/>
+
+                        }
+
+                        </Menu>
+
+
+
+
+
+
+
+
+
+                </Header>
+
+                <Content style={{padding: '0 50px'}}>
+                    <Breadcrumb style={{margin: '16px 0'}}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <div className="site-layout-content">{this.props.children}</div>
+                </Content>
+                <Footer style={{textAlign: 'center'}}></Footer>
+            </Layout>
         )
+
+    }
 }
 
-export default MainLayout;
+const mapDispatchToProps = dispatch  => {
+  return {
+    logout: () => dispatch(actions.logout())
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(MainLayout));

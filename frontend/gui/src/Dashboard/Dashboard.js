@@ -1,5 +1,6 @@
 import { Table } from 'antd';
 import React from "react";
+import  { Redirect } from 'react-router-dom'
 
 const columns = [
   {
@@ -26,11 +27,9 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
+
+
 class GymListView extends React.Component {
-
-  componentDidMount() {
-
-  }
 
     state = {
     selectedRowKeys: [], // Check here to configure the default column
@@ -40,6 +39,8 @@ class GymListView extends React.Component {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
+
+
 
   render() {
     const { selectedRowKeys } = this.state;
@@ -79,8 +80,15 @@ class GymListView extends React.Component {
           },
         },
       ],
+
     };
-    return <Table rowSelection={rowSelection} columns={columns} dataSource={data} />;
+    return (
+
+
+      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+
+
+  )
   }
 }
 

@@ -71,7 +71,7 @@ class RegistrationForm extends React.Component {
 
 onFinish = values => {
     this.props.onSignup(values);
-    this.props.history.push('/dashboard/');
+    this.props.history.push('/');
 }
 
     render() {

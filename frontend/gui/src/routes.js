@@ -6,11 +6,11 @@ import RegistrationForm from "./User/Register";
 import GymList from "./Dashboard/Dashboard";
 
 
-const BaseRouter = () => (
+const BaseRouter = (props) => (
   <div>
 
     <Route exact path="/register/" component={RegistrationForm} />{" "},
-    <Route exact path="/login/" component={LoginForm}/>{" "}
+    <Route exact path="/" component={props.isAuthenticated?GymList:LoginForm}/>{" "}
     <Route exact path="/dashboard/" component={GymList}/>{" "}
   </div>
 );
