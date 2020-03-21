@@ -17,19 +17,21 @@ def authUser(request):
                 if data is not None:
                     responseData["Data"] = data
                 else:
-                    responseData["Data"] = "Failed"
+                    responseData["Status"] = "Failed"
+
+
                 return JsonResponse(responseData)
             else:
                 print("[EXCEPTION] User not in database")
                 responseData = {}
-                responseData["Data"] = "Failed"
+                responseData["Status"] = "Failed"
                 return JsonResponse(responseData)
 
     except Exception as ex:
         print("[EXCEPTION] Auth User Service : ")
         print(ex)
         responseData = {}
-        responseData["Data"] = "Failed"
+        responseData["Status"] = "Failed"
         return JsonResponse(responseData)
 
 @csrf_exempt
@@ -52,12 +54,12 @@ def addUser(request):
             else:
                 print("[EXCEPTION] Already in database")
                 responseData = {}
-                responseData["Data"] = "Failed"
+                responseData["Status"] = "Failed"
                 return JsonResponse(responseData)
 
     except Exception as ex:
         print("[EXCEPTION] Add User Service : ")
         print(ex)
         responseData = {}
-        responseData["Data"] = "Failed"
+        responseData["Status"] = "Failed"
         return JsonResponse(responseData)
