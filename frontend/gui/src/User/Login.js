@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -12,7 +12,7 @@ import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
 
-const FormItem = Form.Item;
+
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 
@@ -53,30 +53,22 @@ class LoginForm extends React.Component{
 
 
    onFinish = (values) => {
+
       const username = values.username;
       const password = values.password;
 
       this.props.onAuth(username, password);
-      this.props.history.push('/dashboard/');
-   }
+      this.props.history.push('/');
 
+   }
 
 
   render() {
 
-    let errorMessage = null;
-    if(this.props.error){
-      errorMessage = (
-          <p>{this.props.error.message}</p>
-      )
-    }
+
     return (
-        <div>{
-          errorMessage
-        }
+        <div>
           {
-            this.props.loading ? <Spin indicator={antIcon} />
-            :
 
             <Form
 

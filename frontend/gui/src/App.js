@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import BaseRouter from "./routes";
 import * as actions from './User/store/Actions/AuthorizeUser'
+
+
 class App extends React.Component {
 
     componentDidMount() {
@@ -16,7 +18,7 @@ class App extends React.Component {
             <div>
                 <Router>
                     <MainLayout {...this.props}>
-                        <BaseRouter/>
+                        <BaseRouter {...this.props}/>
                     </MainLayout>
                 </Router>
 
@@ -24,6 +26,7 @@ class App extends React.Component {
         );
     }
 }
+
 
 const mapStateToProps = state => {
     return({

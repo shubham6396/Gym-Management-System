@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import * as actionTypes from './ActionTypes';
 
 
+
 export const authStart = () => {
     return {
         type: actionTypes.AUTH_START
@@ -25,11 +26,41 @@ export const authFail = error => {
 }
 
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
+
+    const token = localStorage.getItem('token');
+    if(token===null || token=== undefined) {
+
+    }else{
+        swal({
+          title: "Are you sure you want to Logout?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+              swal("You have been Logged out", {
+              icon: "success",
+            });
+            localStorage.removeItem('token');
+            localStorage.removeItem('expirationDate');
+            window.location.href = '/';
+            return {
+                type: actionTypes.AUTH_LOGOUT
+            };
+
+          } else {
+            swal("You are still logged in");
+          }
+          window.location.href = '/';
+        });
+    }
+
     return {
-        type: actionTypes.AUTH_LOGOUT
+        type: null
     };
+
+
 }
 
 export const checkAuthTimeout = expirationTime =>{
@@ -47,22 +78,29 @@ export const authorize = (username, password) => {
             dispatch(authStart());
             axios.get('http://127.0.0.1:8000/user/authUser/?usrId=' + '&usrLoginName=' + username + '&usrPassword=' + password)
                 .then(res => {
-                    if (res.data.Data == "Failed") {
+                    if (res.data.Data == "Failed" || res.data.Data.Status == "Failed") {
+                        console.log(res);
                         dispatch(authFail("Failed"));
                         swal("Log in Failed", "ERROR");
-                    } else {
+                        throw new Error("Failed");
 
+                    } else {
+                        console.log(res);
                         const token = res.data.Data.usrId;
                         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
                         localStorage.setItem('token', token);
                         localStorage.setItem('expirationDate', expirationDate);
-                        console.log(token);
                         dispatch(authSuccess(token));
                         dispatch(checkAuthTimeout(3600));
                         swal("Log in Successful", "SUCCESS");
+
+
                     }
 
-                }).catch(error => console.error(error))
+                }).catch(error => {
+                    console.error(error);
+                    dispatch(authFail(error))
+            })
         }
 }
 
@@ -76,18 +114,11 @@ export const register = (values) => {
                 + values.last + '&usrLoginName=' + values.username + '&usrPassword=' + values.password + '&usrEmailId=' + values.email +
                 '&usrContact=' + values.phone)
                 .then(res => {
-                    if (res.data.Data == "Failed") {
-                        dispatch(authFail("Failed"));
+                    if (res.data.Data == "Failed" || res.data.Data.Status == "Failed") {
+                        console.log(res);
                         swal("Failed to Register!! Duplicate Student ID or Username", "ERROR");
-                    } else {
 
-                        const token = res.data.Data.usrId;
-                        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('expirationDate', expirationDate);
-                        console.log(token);
-                        dispatch(authSuccess(token));
-                        dispatch(checkAuthTimeout(3600));
+                    } else {
                         swal("Successfully Registered", "SUCCESS");
                     }
 
