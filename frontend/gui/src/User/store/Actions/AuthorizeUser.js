@@ -41,18 +41,20 @@ export const logout = () => {
           if (willDelete) {
               swal("You have been Logged out", {
               icon: "success",
-            });
-            localStorage.removeItem('token');
-            localStorage.removeItem('expirationDate');
-            window.location.href = '/';
+            }).then(value => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('expirationDate');
+                window.location.href = '/';
+              });
+
             return {
                 type: actionTypes.AUTH_LOGOUT
             };
 
           } else {
-            swal("You are still logged in");
+            swal("You are still logged in").then(value => window.location.href = '/');
           }
-          window.location.href = '/';
+
         });
     }
 

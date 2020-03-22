@@ -1,9 +1,5 @@
-from django.shortcuts import render
-import json
 from .models import Sport
 
-from .models import Sport
-from Area.models import Area
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt

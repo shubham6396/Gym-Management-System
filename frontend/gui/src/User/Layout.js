@@ -43,20 +43,13 @@ class MainLayout extends React.Component {
                         {
 
                             this.props.isAuthenticated ?
-                                <Menu.Item onClick={this.props.logout}>Logout</Menu.Item>
+                                <Menu.Item key="3" onClick={this.props.logout}>Logout</Menu.Item>
                                 :
                                 <span/>
 
                         }
 
                         </Menu>
-
-
-
-
-
-
-
 
 
                 </Header>

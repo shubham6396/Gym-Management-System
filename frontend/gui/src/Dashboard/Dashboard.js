@@ -1,95 +1,102 @@
 import { Table } from 'antd';
 import React from "react";
-import  { Redirect } from 'react-router-dom'
 
-const columns = [
-  {
-    title: 'Sport',
-    dataIndex: 'sport',
-  },
+
+const area_columns = [
   {
     title: 'Area',
     dataIndex: 'area',
   },
+
+];
+
+const equipment_columns = [
   {
     title: 'Equipment',
     dataIndex: 'equipment',
   },
+
 ];
 
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
 
-
-
-class GymListView extends React.Component {
+class GymTableView extends React.Component {
 
     state = {
-    selectedRowKeys: [], // Check here to configure the default column
+      selectedRowKeysArea: [], // Check here to configure the default column
+      selectedRowKeysEquipment: [],
+      area_data: [],
+      equipment_data: []
+    };
+
+    componentDidMount() {
+
+      const temp_area_data = [];
+      for(let i=0; i<this.props.data.area_id.length; i++){
+          temp_area_data.push({
+            key: this.props.data.area_id[i],
+            area: this.props.data.area_names[i],
+          });
+      }
+
+      const temp_equipment_data = [];
+      for(let i=0; i<this.props.data.equipment_id.length; i++){
+          temp_equipment_data.push({
+            key: this.props.data.equipment_id[i],
+            equipment: this.props.data.equipment_names[i],
+          });
+      }
+
+      console.log(temp_area_data);
+      console.log(temp_equipment_data);
+
+      this.setState({
+          area_data: temp_area_data,
+          equipment_data: temp_equipment_data
+      });
+
+      console.log("Component GymTableView Mounted");
+      // console.log(this.state);
+
+    }
+
+  onSelectChangeArea = selectedRowKeysArea => {
+    console.log('Area selectedRowKeys changed: ', selectedRowKeysArea);
+    this.setState({ selectedRowKeysArea });
   };
 
-  onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({ selectedRowKeys });
+  onSelectChangeEquipment = selectedRowKeysEquipment => {
+    console.log('Equipment selectedRowKeys changed: ', selectedRowKeysEquipment);
+    this.setState({ selectedRowKeysEquipment });
   };
 
 
 
   render() {
-    const { selectedRowKeys } = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
+    const { selectedRowKeysArea } = this.state;
+    const rowSelectionArea = {
+      selectedRowKeysArea,
+      onChange: this.onSelectChangeArea,
       hideDefaultSelections: true,
-      selections: [
-        Table.SELECTION_ALL,
-        Table.SELECTION_INVERT,
-        {
-          key: 'odd',
-          text: 'Select Odd Row',
-          onSelect: changableRowKeys => {
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
-              if (index % 2 !== 0) {
-                return false;
-              }
-              return true;
-            });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
-          },
-        },
-        {
-          key: 'even',
-          text: 'Select Even Row',
-          onSelect: changableRowKeys => {
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
-              if (index % 2 !== 0) {
-                return true;
-              }
-              return false;
-            });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
-          },
-        },
-      ],
+
+    };
+
+    const { selectedRowKeysEquipment } = this.state;
+    const rowSelectionEquipment = {
+      selectedRowKeysEquipment,
+      onChange: this.onSelectChangeEquipment,
+      hideDefaultSelections: true,
 
     };
     return (
+        <div>
+          <Table rowSelection={rowSelectionArea} columns={area_columns} dataSource={this.state.area_data}/>
+          <Table rowSelection={rowSelectionEquipment} columns={equipment_columns} dataSource={this.state.equipment_data}/>
+        </div>
 
 
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
 
-
-  )
+    )
   }
 }
 
-export default GymListView;
+export default GymTableView;
