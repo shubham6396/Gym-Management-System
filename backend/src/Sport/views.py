@@ -12,10 +12,10 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 # Create your views here.
-def getAllInformation(request):
+def getAllSports(request):
     try:
         responseData = {}
-        responseData = sportService.getAllInfo(request)
+        responseData = sportService.getAllSports(request)
         return JsonResponse(responseData, safe=False)
     except Exception as ex:
         print("[EXCEPTION] Get All Information(Sport) Service : ")

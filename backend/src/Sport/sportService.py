@@ -10,17 +10,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.http import HttpResponse
 from django.http import JsonResponse
-def getAllInfo(request):
+from django.db import connection
+def getAllSports(request):
     try:
         # projects = Model.objects.all().values().filter(prjId=prjId)
         responseData = {}
         sport=Sport.objects.all().values().filter()
         sport_list=list(sport)
         responseData["Sports"] = sport_list
-
-        area = Area.objects.all().values().filter()
-        area_list = list(area)
-        responseData["Area"] = area_list
         return responseData
 
     except Exception as ex:
