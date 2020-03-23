@@ -67,6 +67,10 @@ const prefixSelector = (
         );
 
 
+const styles = {
+    marginRight: '25%'
+}
+
 class RegistrationForm extends React.Component {
 
 onFinish = values => {
@@ -76,7 +80,7 @@ onFinish = values => {
 
     render() {
         return (
-            <Form
+            <Form style = {styles}
                 {...formItemLayout}
                 name="register"
                 onFinish={this.onFinish}

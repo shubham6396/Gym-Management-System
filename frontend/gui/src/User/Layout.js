@@ -35,7 +35,7 @@ class MainLayout extends React.Component {
                         {
 
                             this.props.isAuthenticated ?
-                                <Menu.Item key="2">Profile</Menu.Item>
+                                <Menu.Item key="2"><Link to='/profile/'>Profile</Link></Menu.Item>
                                 :
                                 <span/>
 

@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import * as actions from './store/Actions/AuthorizeUser'
-import { Spin } from 'antd';
+import { Spin, Divider } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
 
@@ -48,9 +48,15 @@ const tailFormItemLayout = {
   },
 };
 
+const styles = {
+    marginRight: '25%'
+}
+
+const h_styles = {
+    marginLeft: '35%'
+}
 
 class LoginForm extends React.Component{
-
 
    onFinish = (values) => {
 
@@ -68,9 +74,12 @@ class LoginForm extends React.Component{
 
     return (
         <div>
+            <h1 style = {h_styles}><b>Welcome to the GYM system!</b></h1>
+            <h4 style = {h_styles}><b> --------- Lead a healthy life with us! --------- </b></h4>
+            <hr/>
+            <Divider />
           {
-
-            <Form
+            <Form  style = {styles}
 
                 {...formItemLayout}
 
