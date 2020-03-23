@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'Sport',
     'Area',
     'Equipment',
-    'corsheaders'
+    'corsheaders',
+    'Reservation',
+    'TimeSlot'
 ]
 
 MIDDLEWARE = [

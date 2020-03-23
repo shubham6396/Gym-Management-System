@@ -232,7 +232,7 @@ onFinish = values => {
 
                     <Link
 
-                        to='/login/'> Login
+                        to='/'> Login
                     </Link>
                     {'    '}or{'    '}
                     <Button type="primary" htmlType="submit">
