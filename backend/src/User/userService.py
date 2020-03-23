@@ -58,3 +58,28 @@ def authUser(request):
         print(ex)
         data["Status"] = "Failed"
         return data
+
+
+def getUserInfo(request):
+    try:
+        data = {}
+        usrId = request.GET.get('usrId')
+        if User.objects.filter(usrId=usrId).exists():
+            currentUserModel = User.objects.get(usrId=usrId)
+            data["usrId"] = currentUserModel.usrId
+            data["usrLoginName"] = currentUserModel.usrLoginName
+            data["usrPassword"] = currentUserModel.usrPassword
+            data["usrFirstName"] = currentUserModel.usrFirstName
+            data["usrEmailId"] = currentUserModel.usrEmailId
+            data["usrLastName"] = currentUserModel.usrLastName
+            data["usrContact"] = currentUserModel.usrContact
+            data["usrRegistrationDate"] = currentUserModel.usrRegistrationDate
+            return data
+        else:
+            data["Status"] = "Failed"
+            return data
+    except Exception as ex:
+        print("[EXCEPTION] Add User Service : ")
+        print(ex)
+        data["Status"] = "Failed"
+        return data

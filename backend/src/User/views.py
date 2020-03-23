@@ -63,3 +63,20 @@ def addUser(request):
         responseData = {}
         responseData["Status"] = "Failed"
         return JsonResponse(responseData)
+
+def getUserInfo(request):
+    try:
+
+        responseData = {}
+        data = userService.getUserInfo(request)
+        if data is not None:
+            responseData["Data"] = data
+        else:
+            responseData["Status"] = "Failed"
+        return JsonResponse(responseData)
+
+    except Exception as ex:
+        print("[EXCEPTION] Auth User Service : ")
+        print(ex)
+        responseData = {"Status": "Failed"}
+        return JsonResponse(responseData)
