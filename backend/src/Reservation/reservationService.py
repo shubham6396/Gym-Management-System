@@ -1,7 +1,10 @@
 from .models import Reservation
 from datetime import datetime
 from TimeSlot.models import TimeSlot
-import datetime
+from Area.models import Area
+from Equipment.models import Equipment
+from Sport.models import Sport
+import traceback
 
 
 
@@ -21,11 +24,11 @@ def addReservation(request):
         print(ex)
         return {"Status": "Failed"}
 
-def getAllTimeSlot(request):
+def getAllTimeSlots(request):
     try:
         responseData={}
         # projects = Model.objects.all().values().filter(prjId=prjId)
-        date=datetime.datetime.now().date()
+        date=datetime.now().date()
         date_string=(date.strftime("%Y-%m-%d"))
         timeSlotReserved=Reservation.objects.all().values('timeSlotId').filter(reservationDate=date_string)
         timeSlotReserved_list=list(timeSlotReserved)
@@ -43,3 +46,38 @@ def getAllTimeSlot(request):
         data = {}
         data["Status"] = "Failed"
         return data
+
+
+def getReservationsForUser(request):
+    try:
+        responseData = {}
+
+        date = datetime.now().date()
+        date_string = (date.strftime("%Y-%m-%d"))
+        usrId = request.GET.get("usrId")
+        reservationModel = Reservation.objects.all().values().filter(usrId=usrId, reservationDate=date_string)
+        responseData["Reservations"] = list(reservationModel)
+
+        for object in responseData["Reservations"]:
+            sportId = object["sportId"]
+            sportName = Sport.objects.all().values("sportName").filter(sportId=sportId)
+            object["sportName"] = list(sportName)[0]["sportName"]
+            areaId = object["sportId"]
+            areaName = Area.objects.all().values("areaName").filter(areaId=areaId)
+            object["areaName"] = list(areaName)[0]["areaName"]
+            equipmentId = object["sportId"]
+            equipmentName = Equipment.objects.all().values("equipmentName").filter(equipmentId=equipmentId)
+            object["equipmentName"] = list(equipmentName)[0]["equipmentName"]
+            timeSlotId = object["timeSlotId"]
+            startTime = TimeSlot.objects.all().values("startTime").filter(timeSlotId=timeSlotId)
+            object["startTime"] = list(startTime)[0]["startTime"]
+            endTime = TimeSlot.objects.all().values("endTime").filter(timeSlotId=timeSlotId)
+            object["endTime"] = list(endTime)[0]["endTime"]
+
+        print(responseData)
+        return responseData
+
+    except Exception as ex:
+        print(traceback.print_exc())
+        responseData = {"Status": "Failed"}
+        return responseData

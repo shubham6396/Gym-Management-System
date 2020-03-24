@@ -23,14 +23,12 @@ def addReservation(request):
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
 
-def getAllTimeSlot(request):
+def getAllTimeSlots(request):
     try:
-        responseData = {}
-        data = reservationService.getAllTimeSlot(request)
-        if data is not None:
-            responseData["Data"] = data
-        else:
+        responseData = reservationService.getAllTimeSlots(request)
+        if responseData is None:
             responseData["Status"] = "Failed"
+
         return JsonResponse(responseData)
     except Exception as ex:
         print("[EXCEPTION] Getting time slots : ")
@@ -38,3 +36,13 @@ def getAllTimeSlot(request):
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
 
+def getReservationsForUser(request):
+    try:
+
+        responseData = reservationService.getReservationsForUser(request)
+        return JsonResponse(responseData, safe=False)
+    except Exception as ex:
+        print("[EXCEPTION] Get All Reservations for User : ")
+        print(ex)
+        responseData = {"Status": "Failed"}
+        return JsonResponse(responseData)

@@ -18,6 +18,5 @@ def getAllAreas(request):
     except Exception as ex:
         print("[EXCEPTION] Get All Information(Sport) Service : ")
         print(ex)
-        responseData = {}
-        responseData["Status"] = "Failed"
+        responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
