@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 import * as actions from './store/Actions/AuthorizeUser'
 
 import {
-  Form,
-  Input,
-  Tooltip,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete,
+    Form,
+    Input,
+    Tooltip,
+    Cascader,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    AutoComplete, Divider,
 } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import {connect} from "react-redux";
@@ -71,6 +71,10 @@ const styles = {
     marginRight: '25%'
 }
 
+const h_styles = {
+    marginLeft: '35%'
+}
+
 class RegistrationForm extends React.Component {
 
 onFinish = values => {
@@ -80,6 +84,11 @@ onFinish = values => {
 
     render() {
         return (
+            <div>
+                 <h1 style = {h_styles}><b>Welcome to the GYM system!</b></h1>
+                 <h4 style = {h_styles}><b> --------- Lead a healthy life with us! --------- </b></h4>
+                 <hr/>
+                 <Divider />
             <Form style = {styles}
                 {...formItemLayout}
                 name="register"
@@ -241,7 +250,7 @@ onFinish = values => {
                 </Form.Item>
 
             </Form>
-
+            </div>
 
         );
     }
