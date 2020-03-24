@@ -15,7 +15,7 @@ def addReservation(request):
         if data is not None:
             responseData["Data"] = data
         else:
-            responseData["Data"] = "Failed"
+            responseData["Status"] = "Failed"
         return JsonResponse(responseData)
 
     except Exception as ex:

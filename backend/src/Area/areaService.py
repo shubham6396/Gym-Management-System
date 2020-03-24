@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import json
 from .models import Area
-from Area.models import Area
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
@@ -15,7 +14,7 @@ def getAllAreas(request):
         responseData = {}
         print(request.GET.get("sportId"))
         areas=Area.objects.all().values().filter(sportId=request.GET.get("sportId"),areaAvailable=True)
-        areas_list=list(areas)
+        areas_list = list(areas)
         responseData["Area"] = areas_list
         return responseData
 

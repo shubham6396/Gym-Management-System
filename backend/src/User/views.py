@@ -49,7 +49,7 @@ def addUser(request):
                 if data is not None:
                     responseData["Data"] = data
                 else:
-                    responseData["Data"] = "Failed"
+                    responseData["Status"] = "Failed"
                 return JsonResponse(responseData)
             else:
                 print("[EXCEPTION] Already in database")
