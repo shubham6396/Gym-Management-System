@@ -1,9 +1,11 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb } from 'antd';
+import {Layout, Menu, Breadcrumb, Divider} from 'antd';
 import {Link, withRouter} from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from "./store/Actions/AuthorizeUser";
 const { Header, Content, Footer } = Layout;
+
+
 
 class MainLayout extends React.Component {
 
@@ -15,55 +17,56 @@ class MainLayout extends React.Component {
     render() {
         return (
 
-            <Layout className="layout">
-                <Header>
-                    <div className="logo"/>
-                    <Menu
-                        className="main-menu"
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['1']}
-                        style={{lineHeight: '64px'}}
 
-                    >
-                        {
-                            this.props.isAuthenticated ?
-                                <Menu.Item  key="1" ><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
-                                :
-                                <Menu.Item key="1"><Link to='/'>Login</Link></Menu.Item>
-                        }
-                        {
+                    <Layout className="layout">
+                        <Header>
+                            <div className="logo"/>
+                            <Menu
+                                className="main-menu"
+                                theme="dark"
+                                mode="horizontal"
+                                defaultSelectedKeys={['1']}
+                                style={{lineHeight: '64px'}}
 
-                            this.props.isAuthenticated ?
-                                <Menu.Item key="2"><Link to='/profile/'>Profile</Link></Menu.Item>
-                                :
-                                <span/>
+                            >
+                                {
+                                    this.props.isAuthenticated ?
+                                        <Menu.Item key="1"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
+                                        :
+                                        <Menu.Item key="1"><Link to='/'>Login</Link></Menu.Item>
+                                }
+                                {
 
-                        }
-                        {
+                                    this.props.isAuthenticated ?
+                                        <Menu.Item key="2"><Link to='/profile/'>Profile</Link></Menu.Item>
+                                        :
+                                        <span/>
 
-                            this.props.isAuthenticated ?
-                                <Menu.Item key="3" onClick={this.props.logout}>Logout</Menu.Item>
-                                :
-                                <span/>
+                                }
+                                {
 
-                        }
+                                    this.props.isAuthenticated ?
+                                        <Menu.Item key="3" onClick={this.props.logout}>Logout</Menu.Item>
+                                        :
+                                        <span/>
 
-                        </Menu>
+                                }
+
+                            </Menu>
 
 
-                </Header>
+                        </Header>
 
-                <Content style={{padding: '0 50px'}}>
-                    <Breadcrumb style={{margin: '16px 0'}}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div className="site-layout-content">{this.props.children}</div>
-                </Content>
-                <Footer style={{textAlign: 'center'}}></Footer>
-            </Layout>
+
+                        <Content style={{padding: '0 50px', margin: '20px'}}>
+
+                            <div className="site-layout-content">{this.props.children}</div>
+                        </Content>
+
+                        <Footer style={{textAlign: 'center'}}></Footer>
+                    </Layout>
+
+
         )
 
     }
