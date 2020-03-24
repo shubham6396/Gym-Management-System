@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'addReservation', views.addReservation),
+    url(r'getAllTimeSlot', views.getAllTimeSlot)
 ]
