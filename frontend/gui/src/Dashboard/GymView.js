@@ -78,7 +78,8 @@ class SportSelectView extends React.Component{
         equipment_id: [],
         equipment_names: [],
         display_table: false,
-        selected_sport: "Select a Sport",
+        selected_sport_name: "Select a Sport",
+        selected_sport_id: null,
         
         // Drawer
         visible: false,
@@ -121,7 +122,8 @@ class SportSelectView extends React.Component{
     onSelect = (key, object) => {
 
       console.log(object.children);
-      this.state.selected_sport = object.children;
+      this.state.selected_sport_name = object.children;
+      this.state.selected_sport_id = key
       const a_names = [];
       const a_id = [];
       const e_names = [];
@@ -224,7 +226,7 @@ class SportSelectView extends React.Component{
                    // placeholder="Select a Sport"
                     optionFilterProp="children"
                     onSelect={this.onSelect.bind(this)}
-                    defaultValue={this.state.selected_sport}
+                    defaultValue={this.state.selected_sport_name}
                     filterOption={(input, option) =>
                       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }

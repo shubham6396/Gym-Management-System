@@ -38,6 +38,7 @@ class GymTableView extends React.Component {
           });
       }
 
+
       const temp_equipment_data = [];
       for(let i=0; i<this.props.data.equipment_id.length; i++){
           temp_equipment_data.push({

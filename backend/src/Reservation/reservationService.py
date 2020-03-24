@@ -26,11 +26,14 @@ def addReservation(request):
 
 def getAllTimeSlots(request):
     try:
+        areaId = request.GET.get("areaId")
+        equipmentId = request.GET.get("equipmentId")
         responseData={}
         # projects = Model.objects.all().values().filter(prjId=prjId)
         date=datetime.now().date()
         date_string=(date.strftime("%Y-%m-%d"))
-        timeSlotReserved=Reservation.objects.all().values('timeSlotId').filter(reservationDate=date_string)
+        timeSlotReserved=Reservation.objects.all().values('timeSlotId')\
+            .filter(reservationDate=date_string, areaId=areaId, equipmentId=equipmentId)
         timeSlotReserved_list=list(timeSlotReserved)
         id=[]
         for i in range(0,len(timeSlotReserved_list)):
