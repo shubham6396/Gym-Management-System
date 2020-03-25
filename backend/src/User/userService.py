@@ -79,7 +79,7 @@ def getUserInfo(request):
             data["Status"] = "Failed"
             return data
     except Exception as ex:
-        print("[EXCEPTION] Add User Service : ")
+        print("[EXCEPTION] Get User Info Service : ")
         print(ex)
         data["Status"] = "Failed"
         return data

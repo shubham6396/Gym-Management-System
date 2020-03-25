@@ -35,10 +35,10 @@ def getAllTimeSlots(request):
         timeSlotReserved=Reservation.objects.all().values('timeSlotId')\
             .filter(reservationDate=date_string, areaId=areaId, equipmentId=equipmentId)
         timeSlotReserved_list=list(timeSlotReserved)
-        id=[]
+        timSlotIdid = []
         for i in range(0,len(timeSlotReserved_list)):
-            id.append(timeSlotReserved[i]['timeSlotId'])
-        timeSlotAvaiable=TimeSlot.objects.exclude(timeSlotId__in=id).all().values()
+            timSlotIdid.append(timeSlotReserved[i]['timeSlotId'])
+        timeSlotAvaiable=TimeSlot.objects.exclude(timeSlotId__in=timSlotIdid).all().values()
         timeSlotAvaiable_list=list(timeSlotAvaiable)
 
         responseData["TimeSlots"] = timeSlotAvaiable_list
@@ -77,7 +77,6 @@ def getReservationsForUser(request):
             endTime = TimeSlot.objects.all().values("endTime").filter(timeSlotId=timeSlotId)
             object["endTime"] = list(endTime)[0]["endTime"]
 
-        print(responseData)
         return responseData
 
     except Exception as ex:

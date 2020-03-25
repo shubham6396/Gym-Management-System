@@ -11,12 +11,11 @@ class MainLayout extends React.Component {
 
     state ={
         current: '1'
-    }
+    };
 
 
     render() {
         return (
-
 
                     <Layout className="layout">
                         <Header>
@@ -25,20 +24,20 @@ class MainLayout extends React.Component {
                                 className="main-menu"
                                 theme="dark"
                                 mode="horizontal"
-                                defaultSelectedKeys={['1']}
+                                defaultSelectedKeys={['main-menu-1']}
                                 style={{lineHeight: '64px'}}
 
                             >
                                 {
                                     this.props.isAuthenticated ?
-                                        <Menu.Item key="1"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
+                                        <Menu.Item key="main-menu-1"><Link to='/dashboard/'>Dashboard</Link></Menu.Item>
                                         :
-                                        <Menu.Item key="1"><Link to='/'>Login</Link></Menu.Item>
+                                        <Menu.Item key="main-menu-1"><Link to='/'>Login</Link></Menu.Item>
                                 }
                                 {
 
                                     this.props.isAuthenticated ?
-                                        <Menu.Item key="2"><Link to='/profile/'>Profile</Link></Menu.Item>
+                                        <Menu.Item key="main-menu-2"><Link to='/profile/'>Profile</Link></Menu.Item>
                                         :
                                         <span/>
 
@@ -46,7 +45,7 @@ class MainLayout extends React.Component {
                                 {
 
                                     this.props.isAuthenticated ?
-                                        <Menu.Item key="3" onClick={this.props.logout}>Logout</Menu.Item>
+                                        <Menu.Item key="main-menu-3" onClick={this.props.logout}>Logout</Menu.Item>
                                         :
                                         <span/>
 
@@ -63,7 +62,7 @@ class MainLayout extends React.Component {
                             <div className="site-layout-content">{this.props.children}</div>
                         </Content>
 
-                        <Footer style={{textAlign: 'center'}}></Footer>
+                        <Footer style={{textAlign: 'center'}}>SSDI Project Team 6</Footer>
                     </Layout>
 
 
@@ -76,6 +75,6 @@ const mapDispatchToProps = dispatch  => {
   return {
     logout: () => dispatch(actions.logout())
   }
-}
+};
 
 export default withRouter(connect(null, mapDispatchToProps)(MainLayout));

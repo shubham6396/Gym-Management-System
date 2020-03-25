@@ -2,6 +2,14 @@ import { Table, Button, List, Avatar, Typography, Tag, Divider, Form, Descriptio
 import { EditOutlined, MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import {Link, withRouter} from "react-router-dom";
 import React from "react";
+import axios from 'axios'
+import { Card } from 'antd';
+
+
+const gridStyle = {
+  width: '25%',
+  textAlign: 'center',
+};
 
 
 // profile
@@ -51,41 +59,80 @@ const data = [
   },
 ];
 
-const styles = {
-    marginLeft: '1%'
+const descriptionStyles = {
+    marginLeft: '1%',
+    padding: 10,
+
 }
 
-class UsrProfile extends React.Component {
+
+class UserProfile extends React.Component {
+
+    state = {
+        userData: {},
+        reservationData: []
+    }
+    componentDidMount() {
+
+        console.log("Profile Component Mounted")
+        const usrId = localStorage.getItem('token');
+        console.log(usrId);
+        axios.get("http://127.0.0.1:8000/user/getUserInfo?usrId=" + usrId).then(res => {
+
+
+            this.setState({
+                userData: res.data.Data
+            })
+
+
+        }).catch(error => console.log(error));
+
+        axios.get("http://127.0.0.1:8000/reservation/getReservationsForUser?usrId=" + usrId).then(res => {
+
+            console.log(res.data.Reservations)
+            this.setState({
+                reservationData: res.data.Reservations
+            })
+            console.log(this.state)
+
+        }).catch(error => console.log(error));
+
+
+    }
+
     render() {
         return (
-            <div>
-                <Descriptions style = {styles} title="User Info" layout="vertical">
-                  <Descriptions.Item label="FirstName"></Descriptions.Item>
-                  <Descriptions.Item label="LastName"></Descriptions.Item>
-                  <Descriptions.Item label="Student ID"></Descriptions.Item>
-                  <Descriptions.Item label="UserName"></Descriptions.Item>
-                  <Descriptions.Item label="Email"></Descriptions.Item>
-                  <Descriptions.Item label="PhoneNumber"></Descriptions.Item>
-                </Descriptions>
+
+            <div className="site-card-border-less-wrapper">
+                <Card title="User Information" bordered={true} style={{ width: 1000, marginBottom: '50px' }}>
+                  <Descriptions style = {descriptionStyles} >
+                      <Descriptions.Item label="First Name">{this.state.userData.usrFirstName}</Descriptions.Item>
+                      <Descriptions.Item label="Last Name">{this.state.userData.usrLastName}</Descriptions.Item>
+                      <Descriptions.Item label="Student ID">{this.state.userData.usrId}</Descriptions.Item>
+                      <Descriptions.Item label="Username">{this.state.userData.usrLoginName}</Descriptions.Item>
+                      <Descriptions.Item label="Email ID">{this.state.userData.usrEmailId}</Descriptions.Item>
+                      <Descriptions.Item label="Phone Number">{this.state.userData.usrContact}</Descriptions.Item>
+                  </Descriptions>
+                </Card>
+
                 
-                *click <Link to="/register/"><EditOutlined/></Link> to make changes.
+                {/* click <Link to="/register/"><EditOutlined/></Link> to make changes. */}
                 <hr/>
-                <h3 style = {styles}><b>Reservation Info</b></h3>
-                <Table dataSource={data}>
-                  <Column title="Sport" dataIndex="sport" key="sport" />
-                  <Column title="Area Id" dataIndex="area_id" key="area_id" />
-                  <Column title="Area Name" dataIndex="area_name" key="area_name" />
-                  <Column title="Equipment" dataIndex="equipment" key="equipment" />
-                  <Column title="Date" dataIndex="date" key="date" />
-                  <Column title="Start Time" dataIndex="start_time" key="start_time" />
-                  <Column title="End Time" dataIndex="end_time" key="end_time" />
+                <h3 style = {descriptionStyles}><b>My Reservations</b></h3>
+                <Table dataSource={this.state.reservationData}>
+                  <Column title="Sport" dataIndex="sportName" key="sportName" />
+                  <Column title="Area Name" dataIndex="areaName" key="areaName" />
+                  <Column title="Equipment" dataIndex="equipmentName" key="equipmentName" />
+                  <Column title="Date" dataIndex="reservationDate" key="reservationDate" />
+                  <Column title="Start Time" dataIndex="startTime" key="startTime" />
+                  <Column title="End Time" dataIndex="endTime" key="endTime" />
                   <Column
                     title="Action"
                     key="action"
                     render={(text, record) => (
                       <span>
                         <a style={{ marginRight: 16 }}>Reschedule</a>
-                        <a>Delete</a>
+                        <a>Cancel Reservation</a>
                       </span>
                     )}
                   />
@@ -95,5 +142,5 @@ class UsrProfile extends React.Component {
     }
 }
 
-export default UsrProfile;
+export default UserProfile;
 

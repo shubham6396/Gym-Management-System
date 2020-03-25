@@ -136,9 +136,14 @@ onFinish = values => {
 
                     rules={[
                         {
+                            type: 'number',
                             required: true,
-                            message: 'Please Enter your Student ID!',
-                        },
+                            message: 'Student ID must be a Number',
+                            transform: (value)=>{
+                                return Number(value)?Number(value):null;
+                            }
+                        }
+
                     ]}
                 >
                     <Input/>

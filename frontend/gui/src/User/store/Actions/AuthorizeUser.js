@@ -80,7 +80,8 @@ export const authorize = (username, password) => {
             dispatch(authStart());
             axios.get('http://127.0.0.1:8000/user/authUser/?usrId=' + '&usrLoginName=' + username + '&usrPassword=' + password)
                 .then(res => {
-                    if (res.data.Data == "Failed" || res.data.Data.Status == "Failed") {
+                    console.log(res);
+                    if (res.data.Status == "Failed" || res.data.Data.Status == "Failed") {
                         console.log(res);
                         dispatch(authFail("Failed"));
                         swal("Log in Failed", "ERROR");
@@ -116,7 +117,7 @@ export const register = (values) => {
                 + values.last + '&usrLoginName=' + values.username + '&usrPassword=' + values.password + '&usrEmailId=' + values.email +
                 '&usrContact=' + values.phone)
                 .then(res => {
-                    if (res.data.Data == "Failed" || res.data.Data.Status == "Failed") {
+                    if (res.data.Status == "Failed") {
                         console.log(res);
                         swal("Failed to Register!! Duplicate Student ID or Username", "ERROR");
 

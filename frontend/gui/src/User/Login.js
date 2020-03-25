@@ -13,9 +13,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
 
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
-
 
 const formItemLayout = {
   labelCol: {
@@ -50,11 +47,13 @@ const tailFormItemLayout = {
 
 const styles = {
     marginRight: '25%'
-}
+};
 
 const h_styles = {
-    marginLeft: '35%'
-}
+    marginLeft: '35%',
+
+    color: 'blue'
+};
 
 
 class LoginForm extends React.Component{
@@ -67,7 +66,7 @@ class LoginForm extends React.Component{
       this.props.onAuth(username, password);
       this.props.history.push('/');
 
-   }
+   };
 
 
   render() {
@@ -75,8 +74,8 @@ class LoginForm extends React.Component{
 
     return (
             <div>
-                 <h1 style = {h_styles}><b>Welcome to the GYM system!</b></h1>
-                 <h4 style = {h_styles}><b> --------- Lead a healthy life with us! --------- </b></h4>
+                 <h1 style = {h_styles}><b>Welcome to our Gym System</b></h1>
+                 <h2 style = {h_styles}><b>Lead a healthy life with us ! !</b></h2>
                  <hr/>
                  <Divider />
             <Form  style = {styles}
@@ -135,7 +134,7 @@ class LoginForm extends React.Component{
             </div>
     );
   }
-};
+}
 
 
 
@@ -144,12 +143,12 @@ const mapStateToProps = state => {
     loading: state.loading,
     error: state.error
   }
-}
+};
 
 const mapDispatchToProps = dispatch  => {
   return {
     onAuth: (username, password) => dispatch(actions.authorize(username, password))
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
