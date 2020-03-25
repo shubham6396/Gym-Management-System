@@ -41,7 +41,7 @@ def authUser(request):
         data = {}
         usrLoginName = request.GET.get('usrLoginName')
         usrPassword = request.GET.get('usrPassword')
-        if User.objects.filter(usrLoginName=usrLoginName, usrPassword=usrPassword).exists() == True:
+        if User.objects.filter(usrLoginName=usrLoginName,usrPassword=usrPassword).exists() == True:
             currentUserModel = User.objects.get(usrLoginName=usrLoginName, usrPassword=usrPassword)
             data["usrId"] = currentUserModel.usrId
             data["usrLoginName"] = currentUserModel.usrLoginName
