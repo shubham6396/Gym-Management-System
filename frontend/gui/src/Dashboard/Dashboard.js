@@ -144,11 +144,11 @@ class GymTableView extends React.Component {
      })
      .then((willDone) => {
        if (willDone) {
-           swal("Your Reservation at "+record.startTime+" has been Done", {icon: "success",}).then(value => {
+           swal("Your Reservation at "+record.start_time+" has been Done", {icon: "success",}).then(value => {
                axios.get('http://localhost:8000/reservation/addReservation?usrId='+ usrId + '&areaId=' + record.area_id + '&equipmentId=' + record.equipment_id + '&sportId=' + record.sport_id + '&timeSlotId=' + record.time_slot_id);
            })
        } else {
-         swal("Your Reservation at "+record.startTime+ " is Not Done Yet");
+         swal("Your Reservation at "+record.start_time+ " is Not Done Yet");
           console.log(window.location.pathname);
        }
 

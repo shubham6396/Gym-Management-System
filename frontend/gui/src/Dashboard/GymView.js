@@ -1,7 +1,7 @@
 import { Menu, Dropdown, message, Select, List, Avatar, Button, Drawer, Table } from 'antd';
 import { DownOutlined,  MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import React from "react";
-import axios from 'axios'
+import axios from 'axios';
 import GymTableView from "./Dashboard";
 
 const { Option } = Select
