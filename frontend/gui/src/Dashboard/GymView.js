@@ -3,7 +3,7 @@ import { DownOutlined,  MessageOutlined, LikeOutlined, StarOutlined } from '@ant
 import React from "react";
 import axios from 'axios';
 import GymTableView from "./Dashboard";
-
+import uncc_logo from '../images/UNCCRecreation.png'
 const { Option } = Select
 
 // news
@@ -47,20 +47,9 @@ class SportSelectView extends React.Component{
         display_table: false,
         selected_sport_name: "Select a Sport",
         selected_sport_id: null,
-    }
+    };
 
-    getInitialState = () => {
 
-        let selected = localStorage.getItem('selected_sport');
-        let temp_area_id = JSON.parse(localStorage.getItem('area_id'));
-        let temp_area_names = JSON.parse(localStorage.getItem('area_names'));
-        console.log(temp_area_names)
-        this.setState({
-            selected_sport: selected,
-            area_id: temp_area_id,
-            area_names: temp_area_names
-        })
-    }
 
     componentDidMount() {
 
@@ -93,8 +82,8 @@ class SportSelectView extends React.Component{
       const e_id = [];
       this.setState({
           display_table:false
-      })
-      message.info(`Click on item ` + key );
+      });
+
 
       axios.get('http://127.0.0.1:8000/area/getAllAreas?sportId=' + key).then(res => {
 
@@ -128,18 +117,7 @@ class SportSelectView extends React.Component{
 
 
     };
-    
-    showSrc = () => {
-      this.setState({
-        visible: true,
-      });
-    };
 
-    onClose = () => {
-      this.setState({
-        visible: false,
-      });
-    };
     
     render() {
         return (
@@ -167,7 +145,7 @@ class SportSelectView extends React.Component{
                         <img
                           width={272}
                           alt="logo"
-                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                         src={uncc_logo}
                         />
                       }
                     >

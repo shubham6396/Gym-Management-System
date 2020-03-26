@@ -1,7 +1,8 @@
-import {Button, Drawer, Table} from 'antd';
+import {Button, Drawer, Table, message} from 'antd';
 import React from "react";
 import Column from "antd/es/table/Column";
 import axios from 'axios'
+import swal from "sweetalert";
 
 const area_columns = [
   {
@@ -77,53 +78,58 @@ class GymTableView extends React.Component {
 
   showTimeSlots = () => {
 
-      const areaId = this.state.selectedRowKeysArea;
-      const equipmentId = this.state.selectedRowKeysEquipment;
-      let areaName = null;
-      let equipmentName = null;
+      if(this.state.selectedRowKeysArea.length == 1 && this.state.selectedRowKeysEquipment.length == 1){
+            const areaId = this.state.selectedRowKeysArea;
+          const equipmentId = this.state.selectedRowKeysEquipment;
+          let areaName = null;
+          let equipmentName = null;
 
-      for(let i=0; i<this.state.area_data.length;i++){
-          if(this.state.area_data[i].key==areaId){
-            areaName = this.state.area_data[i].area
+          for (let i = 0; i < this.state.area_data.length; i++) {
+              if (this.state.area_data[i].key == areaId) {
+                  areaName = this.state.area_data[i].area
+              }
+
           }
 
-      }
+          for (let i = 0; i < this.state.equipment_data.length; i++) {
+              if (this.state.equipment_data[i].key == equipmentId) {
+                  equipmentName = this.state.equipment_data[i].equipment
+              }
 
-      for(let i=0; i<this.state.equipment_data.length;i++){
-          if(this.state.equipment_data[i].key==equipmentId){
-            equipmentName = this.state.equipment_data[i].equipment
           }
 
-      }
+          console.log(areaName);
+          console.log(equipmentName)
+          axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId + '&equipmentId=' + equipmentId).then(res => {
 
-      console.log(areaName);
-      console.log(equipmentName)
-      axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId+ '&equipmentId=' + equipmentId).then(res=> {
+              const data = [];
+              for (let i = 0; i < res.data.TimeSlots.length; i++) {
+                  data.push({
+                      "key": i + 1,
+                      "sport_id": this.props.data.selected_sport_id,
+                      "sport": this.props.data.selected_sport_name,
+                      "area_id": areaId[0],
+                      "area_name": areaName,
+                      "equipment_id": equipmentId[0],
+                      "equipment": equipmentName,
+                      "time_slot_id": res.data.TimeSlots[i].timeSlotId,
+                      "start_time": res.data.TimeSlots[i].startTime,
+                      "end_time": res.data.TimeSlots[i].endTime,
+                  })
+              }
 
-          const data = [];
-          for(let i=0;i<res.data.TimeSlots.length; i++){
-              data.push({
-                "key": i+1,
-                "sport_id": this.props.data.selected_sport_id,
-                "sport": this.props.data.selected_sport_name,
-                "area_id": areaId[0],
-                "area_name": areaName,
-                "equipment_id": equipmentId[0],
-                "equipment": equipmentName,
-                "time_slot_id": res.data.TimeSlots[i].timeSlotId,
-                "start_time": res.data.TimeSlots[i].startTime,
-                "end_time": res.data.TimeSlots[i].endTime,
-            })
-          }
+              this.setState({
+                  timeSlotData: data,
+                  visible: true,
+              });
 
-          this.setState({
-            timeSlotData: data,
-            visible: true,
+              console.log(this.state.timeSlotData)
+
           });
-
-          console.log(this.state.timeSlotData)
-
-      });
+      }
+      else {
+          message.info("Please select One Area and Equipment");
+      }
 
     };
 
@@ -133,21 +139,28 @@ class GymTableView extends React.Component {
       });
     };
 
-  getReservation = (record) => {
-     const reservationId = record.reservationId; console.log(record);
-     const usrId = localStorage.getItem('token'); console.log(usrId);
+  addReservation = (record) => {
+
+     const usrId = localStorage.getItem('token');
      
      swal({
-       title: "Are you sure you want to Do this Reservation?",
+       title: "Are you sure you want to Reserve this slot?",
        icon: "warning",
        buttons: ["No, I'm not Sure", "Yes!"]
-     })
-     .then((willDone) => {
+     }).then((willDone) => {
        if (willDone) {
-           swal("Your Reservation at "+record.start_time+" has been Done", {icon: "success",}).then(value => {
-               axios.get('http://localhost:8000/reservation/addReservation?usrId='+ usrId + '&areaId=' + record.area_id + '&equipmentId=' + record.equipment_id + '&sportId=' + record.sport_id + '&timeSlotId=' + record.time_slot_id);
-           })
-       } else {
+           swal(record.area_name+" and "+record.equipment+" has been Reserved for you at "+record.start_time, {icon: "success",}).then(value => {
+               axios.get('http://localhost:8000/reservation/addReservation?usrId='+ usrId + '&areaId=' + record.area_id + '&equipmentId=' + record.equipment_id + '&sportId=' + record.sport_id + '&timeSlotId=' + record.time_slot_id).then(res =>{
+
+                        this.setState({
+                            visible: false,
+
+                       });
+
+                       }).catch(err=> console.log(err));
+                   });
+           }
+       else{
          swal("Your Reservation at "+record.start_time+ " is Not Done Yet");
           console.log(window.location.pathname);
        }
@@ -155,14 +168,10 @@ class GymTableView extends React.Component {
      });
 
 
-
-
-
-
-  }
+  };
     
   render() {
-    const { selectedRowKeysArea } = this.state;
+    const { selectedRowKeysArea } = this.state.selectedRowKeysArea;
     const rowSelectionArea = {
       selectedRowKeysArea,
       onChange: this.onSelectChangeArea,
@@ -170,7 +179,7 @@ class GymTableView extends React.Component {
 
     };
 
-    const { selectedRowKeysEquipment } = this.state;
+    const { selectedRowKeysEquipment } = this.state.selectedRowKeysEquipment;
     const rowSelectionEquipment = {
       selectedRowKeysEquipment,
       onChange: this.onSelectChangeEquipment,
@@ -181,7 +190,7 @@ class GymTableView extends React.Component {
         <div>
           <Table rowSelection={rowSelectionArea} columns={area_columns} dataSource={this.state.area_data}/>
           <Table rowSelection={rowSelectionEquipment} columns={equipment_columns} dataSource={this.state.equipment_data}/>
-            <Button type = "primary" onClick={this.showTimeSlots}>I'm Felling Lucky!</Button>
+            <Button type = "primary" onClick={this.showTimeSlots}>Check Time Slots</Button>
 
                 <Drawer
                     title="Available Time Slots"
@@ -201,8 +210,8 @@ class GymTableView extends React.Component {
                         key="action"
                         render={(text, record) => (
                           <span>
-                            <Button type="submit" style={{ marginRight: 4, backgroundColor: 'green'}} onClick={() => this.getReservation.bind(this)(record)}>Reservation</Button>
-                            <Button style={{ marginRight: 10 }}>WL</Button>
+                            <Button type = "primary" style={{ marginRight: 4}} onClick={() => this.addReservation.bind(this)(record)}>Reserve</Button>
+                            <Button type = "primary" style={{ marginRight: 10 }}>WL</Button>
                           </span>
                         )}
                       />

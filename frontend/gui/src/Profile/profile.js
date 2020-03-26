@@ -138,8 +138,8 @@ class UserProfile extends React.Component {
                     key="action"
                     render={(text, record) => (
                       <span>
-                        <Button style={{ marginRight: 10, backgroundColor: 'red' }}>Reschedule</Button>
-                        <Button type="submit" style={{ marginRight: 4, backgroundColor: 'red'}} onClick={() => this.cancelReservation.bind(this)(record)}>Cancel Reservation</Button>
+                        <Button type = "primary" style={{ marginRight: 10 }}>Reschedule</Button>
+                        <Button type = "primary" style={{ marginRight: 4}} onClick={() => this.cancelReservation.bind(this)(record)}>Cancel Reservation</Button>
                       </span>
                     )}
                   />
