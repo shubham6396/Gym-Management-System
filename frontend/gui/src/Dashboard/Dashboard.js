@@ -1,4 +1,4 @@
-import {Button, Drawer, Table, message} from 'antd';
+import {Button, Drawer, Table} from 'antd';
 import React from "react";
 import Column from "antd/es/table/Column";
 import axios from 'axios'
@@ -19,10 +19,6 @@ const equipment_columns = [
 
 ];
 
-
-
-
-
 class GymTableView extends React.Component {
 
     state = {
@@ -30,7 +26,11 @@ class GymTableView extends React.Component {
       selectedRowKeysEquipment: [],
       area_data: [],
       equipment_data: [],
-      timeSlotData: []
+      timeSlotData: [],
+
+      //Drawer
+      visible: false,
+      placement: 'bottom'
     };
 
     componentDidMount() {
@@ -100,13 +100,10 @@ class GymTableView extends React.Component {
       console.log(equipmentName)
       axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId+ '&equipmentId=' + equipmentId).then(res=> {
 
-          if(res.data.Status == "Success") {
-
-
-            const data = [];
-            for (let i = 0; i < res.data.TimeSlots.length; i++) {
+          const data = [];
+          for(let i=0;i<res.data.TimeSlots.length; i++){
               data.push({
-                "key": i + 1,
+                "key": i+1,
                 "sport_id": this.props.data.selected_sport_id,
                 "sport": this.props.data.selected_sport_name,
                 "area_id": areaId[0],
@@ -116,19 +113,15 @@ class GymTableView extends React.Component {
                 "time_slot_id": res.data.TimeSlots[i].timeSlotId,
                 "start_time": res.data.TimeSlots[i].startTime,
                 "end_time": res.data.TimeSlots[i].endTime,
-              })
-            }
-
-            this.setState({
-              timeSlotData: data,
-              visible: true,
-            });
-
-            console.log(this.state.timeSlotData)
+            })
           }
-          else{
-            message.info("Please Select Just One Area and One Equipment")
-          }
+
+          this.setState({
+            timeSlotData: data,
+            visible: true,
+          });
+
+          console.log(this.state.timeSlotData)
 
       });
 
@@ -140,7 +133,34 @@ class GymTableView extends React.Component {
       });
     };
 
+  getReservation = (record) => {
+     const reservationId = record.reservationId; console.log(record);
+     const usrId = localStorage.getItem('token'); console.log(usrId);
+     
+     swal({
+       title: "Are you sure you want to Do this Reservation?",
+       icon: "warning",
+       buttons: ["No, I'm not Sure", "Yes!"]
+     })
+     .then((willDone) => {
+       if (willDone) {
+           swal("Your Reservation at "+record.start_time+" has been Done", {icon: "success",}).then(value => {
+               axios.get('http://localhost:8000/reservation/addReservation?usrId='+ usrId + '&areaId=' + record.area_id + '&equipmentId=' + record.equipment_id + '&sportId=' + record.sport_id + '&timeSlotId=' + record.time_slot_id);
+           })
+       } else {
+         swal("Your Reservation at "+record.start_time+ " is Not Done Yet");
+          console.log(window.location.pathname);
+       }
 
+     });
+
+
+
+
+
+
+  }
+    
   render() {
     const { selectedRowKeysArea } = this.state;
     const rowSelectionArea = {
@@ -161,7 +181,7 @@ class GymTableView extends React.Component {
         <div>
           <Table rowSelection={rowSelectionArea} columns={area_columns} dataSource={this.state.area_data}/>
           <Table rowSelection={rowSelectionEquipment} columns={equipment_columns} dataSource={this.state.equipment_data}/>
-           <Button type = "primary" onClick={this.showTimeSlots}>I'm Felling Lucky!</Button>
+            <Button type = "primary" onClick={this.showTimeSlots}>I'm Felling Lucky!</Button>
 
                 <Drawer
                     title="Available Time Slots"
@@ -181,8 +201,8 @@ class GymTableView extends React.Component {
                         key="action"
                         render={(text, record) => (
                           <span>
-                            <Button style={{ marginRight: 16 }}>Reserve</Button>
-                            <Button>WL</Button>
+                            <Button type="submit" style={{ marginRight: 4, backgroundColor: 'green'}} onClick={() => this.getReservation.bind(this)(record)}>Reservation</Button>
+                            <Button style={{ marginRight: 10 }}>WL</Button>
                           </span>
                         )}
                       />

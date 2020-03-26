@@ -1,9 +1,8 @@
 import { Menu, Dropdown, message, Select, List, Avatar, Button, Drawer, Table } from 'antd';
 import { DownOutlined,  MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import React from "react";
-import axios from 'axios'
+import axios from 'axios';
 import GymTableView from "./Dashboard";
-import uncc_logo from '../images/UNCCRecreation.png'
 
 const { Option } = Select
 
@@ -31,7 +30,6 @@ const IconText = ({ icon, text }) => (
 // drawer
 const { Column } = Table;
 
-
 const styles = {
     marginLeft: '1%'
 }
@@ -49,10 +47,6 @@ class SportSelectView extends React.Component{
         display_table: false,
         selected_sport_name: "Select a Sport",
         selected_sport_id: null,
-        
-        // Drawer
-        visible: false,
-        placement: 'bottom'
     }
 
     getInitialState = () => {
@@ -173,7 +167,7 @@ class SportSelectView extends React.Component{
                         <img
                           width={272}
                           alt="logo"
-                         src={uncc_logo}
+                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                         />
                       }
                     >
