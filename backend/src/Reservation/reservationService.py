@@ -5,7 +5,7 @@ from Area.models import Area
 from Equipment.models import Equipment
 from Sport.models import Sport
 import traceback
-
+from django.db.models import Q
 
 
 def addReservation(request):
@@ -32,20 +32,28 @@ def getAllTimeSlots(request):
         # projects = Model.objects.all().values().filter(prjId=prjId)
         date=datetime.now().date()
         date_string=(date.strftime("%Y-%m-%d"))
-        timeSlotReserved=Reservation.objects.all().values('timeSlotId')\
-            .filter(reservationDate=date_string, areaId=areaId, equipmentId=equipmentId)
-        timeSlotReserved_list=list(timeSlotReserved)
-        timSlotIdid = []
+
+        timeSlotReserved1=Reservation.objects.all().values('timeSlotId')\
+            .filter(reservationDate=date_string, areaId=areaId)
+        timeSlotReserved2 = Reservation.objects.all().values('timeSlotId') \
+            .filter(reservationDate=date_string, equipmentId=equipmentId)
+        timeSlotReserved_list=list(timeSlotReserved1)+ list(timeSlotReserved2)
+        #timeSlotReserved_list.append(list(timeSlotReserved2))
+
+        timeSlotId = []
         for i in range(0,len(timeSlotReserved_list)):
-            timSlotIdid.append(timeSlotReserved[i]['timeSlotId'])
-        timeSlotAvaiable=TimeSlot.objects.exclude(timeSlotId__in=timSlotIdid).all().values()
+            timeSlotId.append(timeSlotReserved_list[i]['timeSlotId'])
+        timeSlotId = list(set(timeSlotId))
+        print(timeSlotId)
+        timeSlotAvaiable=TimeSlot.objects.exclude(timeSlotId__in=timeSlotId).all().values()
         timeSlotAvaiable_list=list(timeSlotAvaiable)
 
         responseData["TimeSlots"] = timeSlotAvaiable_list
+        responseData["Status"] = "Success"
         return responseData
 
     except Exception as ex:
-        print(ex)
+        print(traceback.print_exc())
         data = {}
         data["Status"] = "Failed"
         return data

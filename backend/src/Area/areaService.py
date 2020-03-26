@@ -13,7 +13,7 @@ def getAllAreas(request):
         # projects = Model.objects.all().values().filter(prjId=prjId)
         responseData = {}
         print(request.GET.get("sportId"))
-        areas=Area.objects.all().values().filter(sportId=request.GET.get("sportId"),areaAvailable=True)
+        areas=Area.objects.all().values().filter(sportId=request.GET.get("sportId"))
         areas_list = list(areas)
         responseData["Area"] = areas_list
         return responseData

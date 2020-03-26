@@ -1,4 +1,4 @@
-import {Button, Drawer, Table} from 'antd';
+import {Button, Drawer, Table, message} from 'antd';
 import React from "react";
 import Column from "antd/es/table/Column";
 import axios from 'axios'
@@ -100,10 +100,13 @@ class GymTableView extends React.Component {
       console.log(equipmentName)
       axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId+ '&equipmentId=' + equipmentId).then(res=> {
 
-          const data = [];
-          for(let i=0;i<res.data.TimeSlots.length; i++){
+          if(res.data.Status == "Success") {
+
+
+            const data = [];
+            for (let i = 0; i < res.data.TimeSlots.length; i++) {
               data.push({
-                "key": i+1,
+                "key": i + 1,
                 "sport_id": this.props.data.selected_sport_id,
                 "sport": this.props.data.selected_sport_name,
                 "area_id": areaId[0],
@@ -114,14 +117,18 @@ class GymTableView extends React.Component {
                 "start_time": res.data.TimeSlots[i].startTime,
                 "end_time": res.data.TimeSlots[i].endTime,
               })
+            }
+
+            this.setState({
+              timeSlotData: data,
+              visible: true,
+            });
+
+            console.log(this.state.timeSlotData)
           }
-
-          this.setState({
-            timeSlotData: data,
-            visible: true,
-          });
-
-          console.log(this.state.timeSlotData)
+          else{
+            message.info("Please Select Just One Area and One Equipment")
+          }
 
       });
 
