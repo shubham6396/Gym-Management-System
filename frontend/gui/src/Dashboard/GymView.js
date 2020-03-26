@@ -3,6 +3,7 @@ import { DownOutlined,  MessageOutlined, LikeOutlined, StarOutlined } from '@ant
 import React from "react";
 import axios from 'axios'
 import GymTableView from "./Dashboard";
+import uncc_logo from '../images/UNCCRecreation.png'
 
 const { Option } = Select
 
@@ -172,7 +173,7 @@ class SportSelectView extends React.Component{
                         <img
                           width={272}
                           alt="logo"
-                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                         src={uncc_logo}
                         />
                       }
                     >
