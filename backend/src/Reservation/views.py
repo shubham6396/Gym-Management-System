@@ -46,3 +46,13 @@ def getReservationsForUser(request):
         print(ex)
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
+
+def cancelReservation(request):
+    try:
+        responseData = reservationService.cancelReservation(request)
+        return JsonResponse(responseData, safe=False)
+    except Exception as ex:
+        print("[EXCEPTION] Cancel Reservation : ")
+        print(ex)
+        responseData = {"Status": "Failed"}
+        return JsonResponse(responseData)

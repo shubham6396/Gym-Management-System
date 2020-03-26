@@ -16,6 +16,8 @@ class UserTestCase(TestCase):
         user=User.objects.get(usrId=999)
         self.assertEqual(user.usrFirstName,"Sumit")
 
+
+
     def test_user_UserCount(self):
         print("testing user count")
         users = User.objects.all()

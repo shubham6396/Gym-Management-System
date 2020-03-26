@@ -34,8 +34,8 @@ export const logout = () => {
         swal({
           title: "Are you sure you want to Logout?",
           icon: "warning",
-          buttons: true,
           dangerMode: true,
+          buttons: [ "No", "Yes, Log me Out"]
         })
         .then((willDelete) => {
           if (willDelete) {
@@ -52,7 +52,9 @@ export const logout = () => {
             };
 
           } else {
-            swal("You are still logged in").then(value => window.location.href = '/');
+            swal("You are still logged in").then(value => {
+                window.location.href = window.location.pathname;
+            });
           }
 
         });
@@ -84,7 +86,7 @@ export const authorize = (username, password) => {
                     if (res.data.Status == "Failed" || res.data.Data.Status == "Failed") {
                         console.log(res);
                         dispatch(authFail("Failed"));
-                        swal("Log in Failed", "ERROR");
+                        swal("Log in Failed", "Check Username or Password");
                         throw new Error("Failed");
 
                     } else {

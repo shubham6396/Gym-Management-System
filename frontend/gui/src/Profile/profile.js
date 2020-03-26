@@ -4,6 +4,8 @@ import {Link, withRouter} from "react-router-dom";
 import React from "react";
 import axios from 'axios'
 import { Card } from 'antd';
+import swal from "sweetalert";
+import * as actionTypes from "../User/store/Actions/ActionTypes";
 
 
 const gridStyle = {
@@ -63,15 +65,18 @@ const descriptionStyles = {
     marginLeft: '1%',
     padding: 10,
 
-}
+};
+
 
 
 class UserProfile extends React.Component {
 
     state = {
         userData: {},
-        reservationData: []
-    }
+        reservationData: [],
+        cancelledReservationId: null
+    };
+
     componentDidMount() {
 
         console.log("Profile Component Mounted")
@@ -99,6 +104,55 @@ class UserProfile extends React.Component {
 
 
     }
+
+    cancelReservation = record => {
+
+        const reservationId = record.reservationId;
+        const usrId = this.state.userData.usrId;
+
+        swal({
+          title: "Are you sure you want to Cancel this Reservation?",
+          icon: "warning",
+          dangerMode: true,
+          buttons: [ "No, I'm not Sure", "Yes, Cancel it"]
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+              swal("Your Reservation at "+record.startTime+" has been Cancelled", {
+              icon: "success",
+            }).then(value => {
+
+                axios.get("http://127.0.0.1:8000/reservation/cancelReservation?reservationId=" + reservationId).then(res1=> {
+
+                    axios.get("http://127.0.0.1:8000/reservation/getReservationsForUser?usrId=" + usrId).then(res2 => {
+
+                        console.log(res2.data.Reservations);
+                        this.setState({
+                            reservationData: res2.data.Reservations,
+                            cancelledReservationId: res1.data.reservationId
+                        });
+                        console.log(this.state)
+
+                    }).catch(error => console.log(error));
+                    console.log(this.state);
+
+                }).catch(err=> console.log(err))
+
+              });
+
+
+          } else {
+            swal("Your Reservation at "+record.startTime+ " is Intact");
+             console.log(window.location.pathname);
+          }
+
+        });
+
+
+
+
+
+    };
 
     render() {
         return (
@@ -131,8 +185,8 @@ class UserProfile extends React.Component {
                     key="action"
                     render={(text, record) => (
                       <span>
-                        <a style={{ marginRight: 16 }}>Reschedule</a>
-                        <a>Cancel Reservation</a>
+                        <Button style={{ marginRight: 10, backgroundColor: 'red' }}>Reschedule</Button>
+                        <Button type="submit" style={{ marginRight: 4, backgroundColor: 'red'}} onClick={() => this.cancelReservation.bind(this)(record)}>Cancel Reservation</Button>
                       </span>
                     )}
                   />

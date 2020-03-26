@@ -24,7 +24,7 @@ class MainLayout extends React.Component {
                                 className="main-menu"
                                 theme="dark"
                                 mode="horizontal"
-                                defaultSelectedKeys={['main-menu-1']}
+                                defaultSelectedKeys={window.location.pathname=="/profile/"?['main-menu-2']:['main-menu-1']}
                                 style={{lineHeight: '64px'}}
 
                             >

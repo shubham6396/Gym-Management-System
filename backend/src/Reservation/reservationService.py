@@ -65,10 +65,10 @@ def getReservationsForUser(request):
             sportId = object["sportId"]
             sportName = Sport.objects.all().values("sportName").filter(sportId=sportId)
             object["sportName"] = list(sportName)[0]["sportName"]
-            areaId = object["sportId"]
+            areaId = object["areaId"]
             areaName = Area.objects.all().values("areaName").filter(areaId=areaId)
             object["areaName"] = list(areaName)[0]["areaName"]
-            equipmentId = object["sportId"]
+            equipmentId = object["equipmentId"]
             equipmentName = Equipment.objects.all().values("equipmentName").filter(equipmentId=equipmentId)
             object["equipmentName"] = list(equipmentName)[0]["equipmentName"]
             timeSlotId = object["timeSlotId"]
@@ -79,6 +79,18 @@ def getReservationsForUser(request):
 
         return responseData
 
+    except Exception as ex:
+        print(traceback.print_exc())
+        responseData = {"Status": "Failed"}
+        return responseData
+
+def cancelReservation(request):
+    try:
+        reservationId = request.GET.get("reservationId")
+        reservationModel = Reservation.objects.get(reservationId=reservationId)
+        reservationModel.delete()
+        responseData = {"Status": "Success", "reservationId": reservationId}
+        return responseData
     except Exception as ex:
         print(traceback.print_exc())
         responseData = {"Status": "Failed"}

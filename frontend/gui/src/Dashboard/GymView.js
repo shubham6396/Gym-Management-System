@@ -236,35 +236,7 @@ class SportSelectView extends React.Component{
                     ))}
                   </Select>
                 {this.state.display_table ? <GymTableView data={this.state}/> : <span/>}
-                {this.state.display_table ? <Button type = "primary" onClick={this.showSrc}>I'm Felling Lucky!</Button> : <span/>}
-                
-                <Drawer
-                    title="Available Time Slots"
-                    placement={this.state.placement}
-                    closable={false}
-                    onClose={this.onClose}
-                    visible={this.state.visible}
-                >
-                    <Table dataSource={data}>
-                      <Column title="Sport" dataIndex="sport" key="sport" />
-                      <Column title="Area Id" dataIndex="area_id" key="area_id" />
-                      <Column title="Area Name" dataIndex="area_name" key="area_name" />
-                      <Column title="Equipment" dataIndex="equipment" key="equipment" />
-                      <Column title="Date" dataIndex="date" key="date" />
-                      <Column title="Start Time" dataIndex="start_time" key="start_time" />
-                      <Column title="End Time" dataIndex="end_time" key="end_time" />
-                      <Column
-                        title="Action"
-                        key="action"
-                        render={(text, record) => (
-                          <span>
-                            <a style={{ marginRight: 16 }}>Reserve</a>
-                            <a>WL</a>
-                          </span>
-                        )}
-                      />
-                    </Table>
-                </Drawer>
+
             </div>
         )
     }
