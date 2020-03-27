@@ -12,11 +12,14 @@ from django.http import JsonResponse
 # Create your views here.
 def getAllAreas(request):
     try:
-        responseData = {}
         responseData = areaService.getAllAreas(request)
-        return JsonResponse(responseData, safe=False)
+        if responseData is not None:
+            return JsonResponse(responseData, safe=False)
+        else:
+            responseData = {"Status": "Failed"}
+            return JsonResponse(responseData)
     except Exception as ex:
-        print("[EXCEPTION] Get All Information(Sport) Service : ")
+        print("[EXCEPTION] Get All Information(Area) Service : ")
         print(ex)
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
