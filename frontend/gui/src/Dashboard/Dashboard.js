@@ -98,7 +98,7 @@ class GymTableView extends React.Component {
 
           }
 
-          axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId + '&equipmentId=' + equipmentId).then(res => {
+          axios.get('http://127.0.0.1:8000/timeslot/getAllTimeSlots?areaId=' + areaId + '&equipmentId=' + equipmentId).then(res => {
 
               const data = [];
               for (let i = 0; i < res.data.TimeSlots.length; i++) {
