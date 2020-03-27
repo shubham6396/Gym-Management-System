@@ -14,9 +14,13 @@ def getAllAreas(request):
         responseData = {}
         print(request.GET.get("sportId"))
         areas=Area.objects.all().values().filter(sportId=request.GET.get("sportId"))
+
         areas_list = list(areas)
-        responseData["Area"] = areas_list
-        return responseData
+        if len(areas_list) > 0:
+            responseData["Area"] = areas_list
+            return responseData
+        else:
+            return None
 
     except Exception as ex:
         print(ex)

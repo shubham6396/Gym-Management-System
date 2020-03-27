@@ -12,10 +12,13 @@ def getAllEquipments(request):
     try:
         # projects = Model.objects.all().values().filter(prjId=prjId)
         responseData = {}
-        equiments=Equipment.objects.all().values().filter(sportId=request.GET.get("sportId"),equipmentAvailable=True)
+        equiments=Equipment.objects.all().values().filter(sportId=request.GET.get("sportId"))
         equiments_list=list(equiments)
-        responseData["Equipment"] = equiments_list
-        return responseData
+        if len(equiments_list) > 0:
+            responseData["Equipment"] = equiments_list
+            return responseData
+        else:
+            return None
 
     except Exception as ex:
         print(ex)

@@ -14,7 +14,11 @@ def getAllEquipments(request):
     try:
         responseData = {}
         responseData = equipmentService.getAllEquipments(request)
-        return JsonResponse(responseData, safe=False)
+        if responseData is not None:
+            return JsonResponse(responseData, safe=False)
+        else:
+            responseData = {"Status": "Failed"}
+            return JsonResponse(responseData)
     except Exception as ex:
         print("[EXCEPTION] Get All Equipment Service : ")
         print(ex)

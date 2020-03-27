@@ -64,7 +64,9 @@ def getUserInfo(request):
     try:
         data = {}
         usrId = request.GET.get('usrId')
+        print("getUserInfo Called")
         if User.objects.filter(usrId=usrId).exists():
+            print("User Exists")
             currentUserModel = User.objects.get(usrId=usrId)
             data["usrId"] = currentUserModel.usrId
             data["usrLoginName"] = currentUserModel.usrLoginName
