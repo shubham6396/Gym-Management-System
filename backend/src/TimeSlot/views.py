@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from . import timeSlotService
 from . import  timeSlotService
+
 def getAllTimeSlots(request):
     try:
         responseData = timeSlotService.getAllTimeSlots(request)
