@@ -4,14 +4,14 @@ from django.conf import settings
 from .views import *
 
 # Create your tests here.
-class EquipmentTestCase(TestCase):
+class SportTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.sport1 = Sport.objects.create(sportId=1, sportName="Badminton", sportMaxPlayers=4, sportMinPlayers=2, sportTeamSport=0)
         self.sport2 = Sport.objects.create(sportId=2, sportName="Basketball", sportMaxPlayers=10, sportMinPlayers=2, sportTeamSport=1)
         print("setUp called")
 
-    def test_getAllEquipments(self):
+    def test_getAllSports(self):
         print("Testing Get All Sports")
 
         # Success Test Case

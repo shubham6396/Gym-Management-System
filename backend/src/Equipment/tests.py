@@ -9,7 +9,7 @@ class EquipmentTestCase(TestCase):
         self.factory = RequestFactory()
         self.equipment1 = Equipment.objects.create(equipmentId=1, sportId=1, equipmentAvailable=1, equipmentName="Racket, Shuttle, Net")
         self.equipment2 = Equipment.objects.create(equipmentId=2, sportId=1, equipmentAvailable=1, equipmentName="Racket, Shuttle, Net")
-        print("setUp called")
+
 
     def test_getAllEquipments(self):
         print("Testing Get All Equipment")
