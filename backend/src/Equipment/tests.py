@@ -21,6 +21,7 @@ class EquipmentTestCase(TestCase):
         response = getAllEquipments(request)
         response_dict = json.loads(response.content)
         self.assertEqual(sportId1['sportId'], response_dict['Equipment'][0]['sportId'])
+        self.assertEqual(len(response_dict['Equipment']), 2)
 
         # Failure Test Case
         request = self.factory.get('/equipment/getAllEquipments', sportId2)
