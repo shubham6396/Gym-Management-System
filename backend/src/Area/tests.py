@@ -21,6 +21,7 @@ class AreaTestCase(TestCase):
         response = getAllAreas(request)
         response_dict = json.loads(response.content)
         self.assertEqual(sportId1['sportId'], response_dict['Area'][0]['sportId'])
+        self.assertEqual(len(response_dict['Area']), 2)
 
         # Failure Test Case
         request = self.factory.get('/area/getAllAreas', sportId2)
