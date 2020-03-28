@@ -98,9 +98,7 @@ class GymTableView extends React.Component {
 
           }
 
-          console.log(areaName);
-          console.log(equipmentName)
-          axios.get('http://127.0.0.1:8000/reservation/getAllTimeSlots?areaId=' + areaId + '&equipmentId=' + equipmentId).then(res => {
+          axios.get('http://127.0.0.1:8000/timeslot/getAllTimeSlots?areaId=' + areaId + '&equipmentId=' + equipmentId).then(res => {
 
               const data = [];
               for (let i = 0; i < res.data.TimeSlots.length; i++) {
@@ -122,8 +120,6 @@ class GymTableView extends React.Component {
                   timeSlotData: data,
                   visible: true,
               });
-
-              console.log(this.state.timeSlotData)
 
           });
       }
@@ -162,11 +158,10 @@ class GymTableView extends React.Component {
            }
        else{
          swal("Your Reservation at "+record.start_time+ " is Not Done Yet");
-          console.log(window.location.pathname);
+
        }
 
      });
-
 
   };
     

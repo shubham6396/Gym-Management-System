@@ -95,30 +95,25 @@ class SportSelectView extends React.Component{
           this.state.area_id = a_id;
           this.state.area_names = a_names;
 
-
-
-      }).then(
+      }).then(res=> {
           axios.get('http://127.0.0.1:8000/equipment/getAllEquipments?sportId=' + key).then(res => {
-          for(let i=0; i< res.data.Equipment.length; i++){
-                e_names.push(res.data.Equipment[i].equipmentName);
-                e_id.push(res.data.Equipment[i].equipmentId);
-            }
-            this.state.equipment_id = e_id;
-            this.state.equipment_names = e_names;
-            this.setState({
-                 display_table: true
-         })
+              for (let i = 0; i < res.data.Equipment.length; i++) {
+                  e_names.push(res.data.Equipment[i].equipmentName);
+                  e_id.push(res.data.Equipment[i].equipmentId);
+              }
+              this.state.equipment_id = e_id;
+              this.state.equipment_names = e_names;
+              this.setState({
+                  display_table: true
+              })
+
+          }).catch(err => console.log(err));
 
 
-      }).catch(err => console.log(err)),
-
-
-      ).catch(err => console.log(err))
-
+      }).catch(err => console.log(err))
 
     };
 
-    
     render() {
         return (
             <div>
