@@ -9,10 +9,11 @@ class AreaTestCase(TestCase):
         self.factory = RequestFactory()
         self.area1 = Area.objects.create(areaId=1, sportId=1, areaAvailable=1, areaName="Court 1")
         self.area2 = Area.objects.create(areaId=2, sportId=1, areaAvailable=1, areaName="Court 2")
-        print("setUp called")
+
 
     def test_getAllAreas(self):
         print("Testing Get All Areas")
+
         sportId1 = {'sportId': 1}
         sportId2 = {'sportId': 2}
 
