@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'Equipment',
     'corsheaders',
     'Reservation',
-    'TimeSlot'
+    'TimeSlot',
+    'Staff'
 ]
 
 MIDDLEWARE = [

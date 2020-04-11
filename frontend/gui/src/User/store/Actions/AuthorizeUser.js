@@ -18,6 +18,14 @@ export const authSuccess = token => {
     }
 }
 
+export const staffAuthSuccess = token => {
+    return {
+        type: actionTypes.STAFF_AUTH_SUCCESS,
+        token: token,
+        isStaff: true
+    }
+}
+
 export const authFail = error => {
     return {
         type: actionTypes.AUTH_FAIL,
@@ -44,6 +52,7 @@ export const logout = () => {
             }).then(value => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('expirationDate');
+                localStorage.removeItem('type');
                 window.location.href = '/';
               });
 
@@ -80,7 +89,7 @@ export const authorize = (username, password) => {
         return dispatch => {
 
             dispatch(authStart());
-            axios.get('http://127.0.0.1:8000/user/authUser/?usrId=' + '&usrLoginName=' + username + '&usrPassword=' + password)
+            axios.get('http://127.0.0.1:8000/user/authUser/?' + 'usrLoginName=' + username + '&usrPassword=' + password)
                 .then(res => {
                     console.log(res);
                     if (res.data.Status == "Failed" || res.data.Data.Status == "Failed") {
@@ -95,6 +104,7 @@ export const authorize = (username, password) => {
                         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
                         localStorage.setItem('token', token);
                         localStorage.setItem('expirationDate', expirationDate);
+                        localStorage.setItem('type', 'user');
                         dispatch(authSuccess(token));
                         dispatch(checkAuthTimeout(3600));
                         swal("Log in Successful", "SUCCESS");
@@ -142,10 +152,49 @@ export const authCheckState = () => {
             if(expirationDate <= new Date()) {
                 dispatch(logout());
             }else{
-                dispatch(authSuccess(token))
+
+                localStorage.getItem('type')==='staff'?
+                dispatch(staffAuthSuccess(token))
+                :
+                dispatch(authSuccess(token));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())  / 1000 ))
             }
         }
     }
 };
 
+
+export const staffAuthorize = (username, password) => {
+        console.log('Received values of form: ', username, password)
+        return dispatch => {
+
+            dispatch(authStart());
+            axios.get('http://127.0.0.1:8000/staff/authStaff/?' + 'staffLoginName=' + username + '&staffPassword=' + password)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.Status == "Failed" || res.data.Data.Status == "Failed") {
+                        console.log(res);
+                        dispatch(authFail("Failed"));
+                        swal("Log in Failed", "Check Username or Password");
+                        throw new Error("Failed");
+
+                    } else {
+                        console.log(res);
+                        const token = res.data.Data.staffId;
+                        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+                        localStorage.setItem('token', token);
+                        localStorage.setItem('expirationDate', expirationDate);
+                        localStorage.setItem('type', 'staff');
+                        dispatch(staffAuthSuccess(token));
+                        dispatch(checkAuthTimeout(3600));
+                        swal("Log in Successful", "SUCCESS");
+
+
+                    }
+
+                }).catch(error => {
+                    console.error(error);
+                    dispatch(authFail(error))
+            })
+        }
+};

@@ -35,6 +35,17 @@ def getReservationsForUser(request):
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
 
+def getAllReservations(request):
+    try:
+
+        responseData = reservationService.getAllReservations(request)
+        return JsonResponse(responseData, safe=False)
+    except Exception as ex:
+        print("[EXCEPTION] Get All Reservations for User : ")
+        print(ex)
+        responseData = {"Status": "Failed"}
+        return JsonResponse(responseData)
+
 def cancelReservation(request):
     try:
         responseData = reservationService.cancelReservation(request)
