@@ -13,12 +13,21 @@ import {
     Checkbox,
     Button,
     AutoComplete, Divider,
+    Tabs
 } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import {connect} from "react-redux";
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
+
+
+const { TabPane } = Tabs;
+
+function callback(key) {
+  console.log(key);
+}
+
 
 const formItemLayout = {
   labelCol: {
@@ -72,7 +81,8 @@ const styles = {
 }
 
 const h_styles = {
-    marginLeft: '35%'
+    marginLeft: '35%',
+    color: "black"
 }
 
 class RegistrationForm extends React.Component {
@@ -85,176 +95,182 @@ onFinish = values => {
     render() {
         return (
             <div>
-                 <h1 style = {h_styles}><b>Welcome to the GYM system!</b></h1>
-                 <h4 style = {h_styles}><b> --------- Lead a healthy life with us! --------- </b></h4>
-                 <hr/>
-                 <Divider />
-            <Form style = {styles}
-                {...formItemLayout}
-                name="register"
-                onFinish={this.onFinish}
+                 <h1 style = {h_styles}><b>Welcome to our Gym System</b></h1>
+                 <h2 style = {h_styles}><b>Lead a healthy life with us ! !</b></h2>
+                 <Divider/>
 
-                initialValues={{
-                    prefix: '1',
-                }}
-                scrollToFirstError
-            >
+            <div className="card-container" style={{marginTop: "30px"}}>
+            <Tabs defaultActiveKey="1" onChange={callback} type="card" >
+                <TabPane tab="Student" key="1">
+                    <Form style = {styles}
+                        {...formItemLayout}
+                        name="register"
+                        onFinish={this.onFinish}
 
-                <Form.Item
-                    name="first"
-                    label="First Name"
+                        initialValues={{
+                            prefix: '1',
+                        }}
+                        scrollToFirstError
+                    >
 
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your First Name!',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
+                        <Form.Item
+                            name="first"
+                            label="First Name"
 
-                <Form.Item
-                    name="last"
-                    label="Last Name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your First Name!',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Last Name!',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
+                        <Form.Item
+                            name="last"
+                            label="Last Name"
 
-                <Form.Item
-                    name="id"
-                    label="Student ID"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Last Name!',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    rules={[
-                        {
-                            type: 'number',
-                            required: true,
-                            message: 'Student ID must be a Number',
-                            transform: (value)=>{
-                                return Number(value)?Number(value):null;
-                            }
-                        }
+                        <Form.Item
+                            name="id"
+                            label="Student ID"
 
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-
-
-                <Form.Item
-                    name="username"
-                    label="Username"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Create your Username!',
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-
-                <Form.Item
-                    name="password"
-                    label="Password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password/>
-                </Form.Item>
-
-                <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        ({getFieldValue}) => ({
-                            validator(rule, value) {
-                                if (!value || getFieldValue('password') === value) {
-                                    return Promise.resolve();
+                            rules={[
+                                {
+                                    type: 'number',
+                                    required: true,
+                                    message: 'Student ID must be a Number',
+                                    transform: (value)=>{
+                                        return Number(value)?Number(value):null;
+                                    }
                                 }
 
-                                return Promise.reject('The two passwords that you entered do not match!');
-                            },
-                        }),
-                    ]}
-                >
-                    <Input.Password/>
-                </Form.Item>
-
-                <Form.Item
-                    name="email"
-                    label="E-mail"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
 
-                <Form.Item
-                    name="phone"
-                    label="Phone Number"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your phone number!',
-                        },
-                    ]}
-                >
-                    <Input
-                        addonBefore={prefixSelector}
-                        style={{
-                            width: '100%',
-                        }}
-                    />
-                </Form.Item>
+                        <Form.Item
+                            name="username"
+                            label="Username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Create your Username!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>
-                    <Checkbox>
-                        I have read the <a href="">agreement</a>
-                    </Checkbox>
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
+                        <Form.Item
+                            name="password"
+                            label="Password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                            hasFeedback
+                        >
+                            <Input.Password/>
+                        </Form.Item>
 
-                    <Link
+                        <Form.Item
+                            name="confirm"
+                            label="Confirm Password"
+                            dependencies={['password']}
+                            hasFeedback
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please confirm your password!',
+                                },
+                                ({getFieldValue}) => ({
+                                    validator(rule, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
 
-                        to='/'> Login
-                    </Link>
-                    {'    '}or{'    '}
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
+                                        return Promise.reject('The two passwords that you entered do not match!');
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
 
-            </Form>
+                        <Form.Item
+                            name="email"
+                            label="E-mail"
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+
+
+                        <Form.Item
+                            name="phone"
+                            label="Phone Number"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your phone number!',
+                                },
+                            ]}
+                        >
+                            <Input
+                                addonBefore={prefixSelector}
+                                style={{
+                                    width: '100%',
+                                }}
+                            />
+                        </Form.Item>
+
+                        <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>
+                            <Checkbox>
+                                I have read the <a href="">agreement</a>
+                            </Checkbox>
+                        </Form.Item>
+                        <Form.Item {...tailFormItemLayout}>
+
+                            <Link
+
+                                to='/'> Login
+                            </Link>
+                            {'    '}or{'    '}
+                            <Button type="primary" htmlType="submit">
+                                Register
+                            </Button>
+                        </Form.Item>
+
+                    </Form>
+                </TabPane>
+            </Tabs>
+            </div>
             </div>
 
         );

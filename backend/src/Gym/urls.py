@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'area/', include('Area.urls')),
     url(r'equipment/', include('Equipment.urls')),
     url(r'reservation/', include('Reservation.urls')),
-    url(r'timeslot/',include('TimeSlot.urls')),
+    url(r'timeslot/', include('TimeSlot.urls')),
+    url(r'staff/', include('Staff.urls')),
 ]

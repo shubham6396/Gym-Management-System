@@ -1,9 +1,12 @@
 from .models import Reservation
 from datetime import datetime
+from User.models import User
 from TimeSlot.models import TimeSlot
 from Area.models import Area
 from Equipment.models import Equipment
 from Sport.models import Sport
+
+
 import traceback
 from django.db.models import Q
 
@@ -36,6 +39,47 @@ def getReservationsForUser(request):
         responseData["Reservations"] = list(reservationModel)
 
         for object in responseData["Reservations"]:
+            sportId = object["sportId"]
+            sportName = Sport.objects.all().values("sportName").filter(sportId=sportId)
+            object["sportName"] = list(sportName)[0]["sportName"]
+            areaId = object["areaId"]
+            areaName = Area.objects.all().values("areaName").filter(areaId=areaId)
+            object["areaName"] = list(areaName)[0]["areaName"]
+            equipmentId = object["equipmentId"]
+            equipmentName = Equipment.objects.all().values("equipmentName").filter(equipmentId=equipmentId)
+            object["equipmentName"] = list(equipmentName)[0]["equipmentName"]
+            timeSlotId = object["timeSlotId"]
+            startTime = TimeSlot.objects.all().values("startTime").filter(timeSlotId=timeSlotId)
+            object["startTime"] = list(startTime)[0]["startTime"]
+            endTime = TimeSlot.objects.all().values("endTime").filter(timeSlotId=timeSlotId)
+            object["endTime"] = list(endTime)[0]["endTime"]
+
+        return responseData
+
+    except Exception as ex:
+        print(traceback.print_exc())
+        responseData = {"Status": "Failed"}
+        return responseData
+
+
+def getAllReservations(request):
+    try:
+        responseData = {}
+        date = datetime.now().date()
+        date_string = (date.strftime("%Y-%m-%d"))
+        reservationModel = Reservation.objects.all().values().filter(reservationDate=date_string)
+        responseData["Reservations"] = list(reservationModel)
+
+        for object in responseData["Reservations"]:
+            usrId = object["usrId"]
+            usrLoginName = User.objects.all().values("usrLoginName").filter(usrId=usrId)
+            object["usrLoginName"] = list(usrLoginName)[0]["usrLoginName"]
+            usrFirstName = User.objects.all().values("usrFirstName").filter(usrId=usrId)
+            object["usrFirstName"] = list(usrFirstName)[0]["usrFirstName"]
+            usrLastName = User.objects.all().values("usrLastName").filter(usrId=usrId)
+            object["usrLastName"] = list(usrLastName)[0]["usrLastName"]
+            usrEmailId = User.objects.all().values("usrEmailId").filter(usrId=usrId)
+            object["usrEmailId"] = list(usrEmailId)[0]["usrEmailId"]
             sportId = object["sportId"]
             sportName = Sport.objects.all().values("sportName").filter(sportId=sportId)
             object["sportName"] = list(sportName)[0]["sportName"]

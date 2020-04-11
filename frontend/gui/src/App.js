@@ -8,9 +8,11 @@ import * as actions from './User/store/Actions/AuthorizeUser'
 
 
 class App extends React.Component {
+    
 
     componentDidMount() {
-        this.props.onTryAutoLogin();
+
+        this.props.onTryAutoLogin(this.props);
     }
 
     render() {
@@ -30,12 +32,14 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
     return({
-            isAuthenticated: state.token !== null
+            isAuthenticated: state.token !== null && !state.isStaff,
+            isStaffAuthenticated: state.token!== null && state.isStaff
+
         }
     )
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return({
             onTryAutoLogin: () => dispatch(actions.authCheckState())
         }
