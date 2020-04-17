@@ -7,6 +7,7 @@ import SportSelectView from "./Dashboard/GymView";
 import UsrProfile from "./Profile/profile";
 import AboutGym from "./About/About";
 import TrackResource from "./Track/TrackResource";
+import ContactGym from "./Contact/Contact";
 
 const BaseRouter = (props) => (
   <div>
@@ -15,7 +16,7 @@ const BaseRouter = (props) => (
     <Route exact path="/dashboard/" component={SportSelectView}/>{" "}
     <Route exact path="/profile/" component={UsrProfile}/>{" "}
     <Route exact path="/about/" component={AboutGym}/>{" "}
-    <Route exact path="/contact/" component={UsrProfile}/>{" "}
+    <Route exact path="/contact/" component={ContactGym}/>{" "}
     <Route exact path="/track/" component={TrackResource} />{" "}
   </div>
 );

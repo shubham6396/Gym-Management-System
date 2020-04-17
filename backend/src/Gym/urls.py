@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'reservation/', include('Reservation.urls')),
     url(r'timeslot/', include('TimeSlot.urls')),
     url(r'staff/', include('Staff.urls')),
+    url(r'broadcast', include('broadcast.urls')),
 ]

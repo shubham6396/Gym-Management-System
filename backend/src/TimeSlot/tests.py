@@ -13,7 +13,7 @@ class TimeSlotTestCase(TestCase):
         self.timeslot = TimeSlot.objects.create(timeSlotId=3, startTime="12:00:00.000000", endTime="13:00:00.000000")
         self.reservation = Reservation.objects.create(reservationId=1, usrId=1, areaId=1,
                                          equipmentId=1, sportId=1, timeSlotId=1,
-                                         reservationDate="2020-03-27")
+                                         reservationDate="2020-03-28")
 
     def test_getAllTimeSlot(self):
         print("testing getting time slots")
@@ -21,4 +21,5 @@ class TimeSlotTestCase(TestCase):
         request = self.factory.get('/timeslot/getAllTimeSlot', ids)
         response = getAllTimeSlots(request)
         resp_dict = json.loads(response.content)
+        print(resp_dict)
         self.assertEqual(len(resp_dict['TimeSlots']), 2)
