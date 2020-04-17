@@ -14,6 +14,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
 import './Tabs.css'
 
+
 const { TabPane } = Tabs;
 
 function callback(key) {
@@ -54,6 +55,7 @@ const tailFormItemLayout = {
 
 const styles = {
     marginRight: '25%'
+
 };
 
 const h_styles = {
@@ -114,12 +116,14 @@ class LoginForm extends React.Component{
                     >
 
                       <Form.Item
+
                           name="username"
-                          label="Username"
+                          label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Username</h4>}
                           rules={[
                             {
                               required: true,
                               message: 'Create your Username!',
+
                             },
                           ]}
                       >
@@ -128,7 +132,7 @@ class LoginForm extends React.Component{
 
                       <Form.Item
                           name="password"
-                          label="Password"
+                          label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Password</h4>}
                           rules={[
                             {
                               required: true,
@@ -145,7 +149,7 @@ class LoginForm extends React.Component{
                         </Button>
                         {'    '}or{'    '}
                         <Link
-                            style={{marginRight: '10px'}}
+                            style={{marginRight: '10px', color: "white"}}
                             to='/register/'> Register
                         </Link>
 
@@ -172,7 +176,7 @@ class LoginForm extends React.Component{
 
                       <Form.Item
                           name="staff_username"
-                          label="Username"
+                          label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Username</h4>}
                           rules={[
                             {
                               required: true,
@@ -185,7 +189,7 @@ class LoginForm extends React.Component{
 
                       <Form.Item
                           name="staff_password"
-                          label="Password"
+                          label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Password</h4>}
                           rules={[
                             {
                               required: true,

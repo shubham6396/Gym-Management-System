@@ -18,6 +18,7 @@ import {
 import { Link, NavLink } from 'react-router-dom';
 import {connect} from "react-redux";
 
+
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
@@ -115,7 +116,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="first"
-                            label="First Name"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >First Name</h4>}
 
                             rules={[
                                 {
@@ -130,7 +131,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="last"
-                            label="Last Name"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Last Name</h4>}
 
                             rules={[
                                 {
@@ -145,7 +146,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="id"
-                            label="Student ID"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Student ID</h4>}
 
                             rules={[
                                 {
@@ -165,7 +166,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="username"
-                            label="Username"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Username</h4>}
                             rules={[
                                 {
                                     required: true,
@@ -178,7 +179,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="password"
-                            label="Password"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Password</h4>}
                             rules={[
                                 {
                                     required: true,
@@ -192,7 +193,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="confirm"
-                            label="Confirm Password"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Confirm Password</h4>}
                             dependencies={['password']}
                             hasFeedback
                             rules={[
@@ -216,7 +217,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="email"
-                            label="E-mail"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Email</h4>}
                             rules={[
                                 {
                                     type: 'email',
@@ -234,7 +235,7 @@ onFinish = values => {
 
                         <Form.Item
                             name="phone"
-                            label="Phone Number"
+                            label={<h4 style={{color: "white", fontSize: "15px", marginTop: "5px"}} >Phone Number</h4>}
                             rules={[
                                 {
                                     required: true,
@@ -252,13 +253,13 @@ onFinish = values => {
 
                         <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>
                             <Checkbox>
-                                I have read the <a href="">agreement</a>
+                                I have read the <a href="" style={{color: "white"}}>agreement</a>
                             </Checkbox>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
 
                             <Link
-
+                                style={{color: "white"}}
                                 to='/'> Login
                             </Link>
                             {'    '}or{'    '}

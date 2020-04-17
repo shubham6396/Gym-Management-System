@@ -75,9 +75,7 @@ class MainLayout extends React.Component {
                             <div className="site-layout-content">{this.props.children}</div>
                         </Content>
 
-                        <Footer style={{backgroundColor: "white", textAlign: 'center', bottom: "0", width: "100%", marginTop: "100px"}}><h4><b>SSDI Project Team 6</b></h4></Footer>
                     </Layout>
-
 
         )
 
