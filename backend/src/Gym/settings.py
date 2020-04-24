@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'TimeSlot',
     'Staff',
     'broadcast',
+    'background_task',
 ]
 
 MIDDLEWARE = [
