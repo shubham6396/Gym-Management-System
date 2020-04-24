@@ -35,8 +35,8 @@ class ContactGym extends React.Component{
             <br/>
             <b>Mihir Vadeyar</b>
             <br/>
-            Already using site and experiencing techinal issues?
-            Email on mvadeyar@uncc.edu to contact me or call me on 980-3197709
+            Already using our site and experiencing techinal issues?
+            Email me at mvadeyar@uncc.edu to contact me or call me on 980-3197709
         </Card>
       </Col>
       <Col span={8}>
@@ -53,8 +53,8 @@ class ContactGym extends React.Component{
             <b>Kewei Yan</b>
             <br/>
 
-            Have a question about gym facilites or need a tour of gym?
-            Email on keweiyan@uncc.edu to contact me or call me on 860-7718970
+            Have a question about gym facilites or need a tour of the gym?
+            Email me at keweiyan@uncc.edu to contact me or call me on 860-7718970
         </Card>
       </Col>
       <Col span={8}>
@@ -72,7 +72,7 @@ class ContactGym extends React.Component{
             <b>Shubham Gandhi</b>
             <br/>
             Have any complaints/suggestions about our gym?
-            Email on sgandh@uncc.edu to contact me or call me on 980-3192555
+            Email me at sgandh@uncc.edu to contact me or call me on 980-3192555
         </Card>
       </Col>
     </Row>

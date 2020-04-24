@@ -4,7 +4,9 @@
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
-  background: #eeeeee;
+  //background: #eeeeee;
+  background-color: #5b6467;
+  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
   padding: 60px;
 }
 
@@ -18,8 +20,11 @@
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-  border-color: #eeeeee;
-  background: #eeeeee;
+  border-color: #8b939a;
+  background-color: #5b6467;
+  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
+  color: #ffffff;
+  //background: #eeeeee;
 
 
 }
