@@ -23,17 +23,21 @@ class ReservationTestCase(TestCase):
         self.reservation = Reservation.objects.create(reservationId=1, usrId=1, areaId=1,
                                          equipmentId=1, sportId=1, timeSlotId=1,
                                          reservationDate="2020-03-27")
-        # self.reservation1 = Reservation.objects.create(reservationId=2, usrId=1, areaId=2,
-        #                                                equipmentId=2, sportId=1, timeSlotId=5,
-        #                                                reservationDate="2020-03-27")
+        #self.reservation1 = Reservation.objects.create(reservationId=2, usrId=1, areaId=2,
+         #                                               equipmentId=2, sportId=1, timeSlotId=5,
+          #                                              reservationDate="2020-03-27")
+        #self.reservation1 = Reservation.objects.create(reservationId=3, usrId=2, areaId=1,
+          #                                             equipmentId=1, sportId=1, timeSlotId=1,
+         #                                              reservationDate="2020-03-27")
+
     def test_getReservationsForUser(self):
         print("testing Reservation")
         usrId = {'usrId': 1}
         request = self.factory.get('/reservation/getReservationsForUser', usrId)
         response = getReservationsForUser(request)
         resp_dict = json.loads(response.content)
-        reservation = Reservation.objects.all()
-        self.assertEqual(reservation.count(), 1)
+        reservation = Reservation.objects.all().filter(usrId=usrId['usrId'])
+        self.assertEqual(reservation.count(), len(resp_dict))
 
     def test_addReservation(self):
         print("testing add reservation")
@@ -52,4 +56,13 @@ class ReservationTestCase(TestCase):
         response = cancelReservation(request)
         resp_dict = json.loads(response.content)
         reservation = Reservation.objects.all()
-        self.assertEqual(reservation.count(),0 )
+        self.assertEqual(reservation.count(), 0)
+
+    def test_getAllReservations(self):
+        print("testing get all Reservations")
+
+        request = self.factory.get('/reservation/getAllReservations')
+        response = getAllReservations(request)
+        resp_dict = json.loads(response.content)
+        reservation = Reservation.objects.all()
+        self.assertEqual(len(resp_dict), reservation.count())  # Length of Resp_dict should be equal to All reservation object coun

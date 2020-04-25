@@ -11,6 +11,7 @@ class Reservation(models.Model):
     sportId = models.IntegerField(db_column="SPORT_ID")
     timeSlotId = models.IntegerField(db_column="TIME_SLOT_ID")
     reservationDate = models.DateField(db_column="RESERVATION_DATE")
+    waitlist = models.IntegerField(db_column="WAITLIST", null=True)
 
     class Meta:
         db_table = "RESERVATION"
