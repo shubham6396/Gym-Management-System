@@ -14,3 +14,16 @@ def getAllTimeSlots(request):
         print(ex)
         responseData = {"Status": "Failed"}
         return JsonResponse(responseData)
+
+def addWaitlist(request):
+    try:
+        responseData = timeSlotService.addWailist(request)
+        if responseData is None:
+            responseData["Status"] = "Failed"
+
+        return JsonResponse(responseData)
+    except Exception as ex:
+        print("[EXCEPTION] Adding waitlist : ")
+        print(ex)
+        responseData = {"Status": "Failed"}
+    return JsonResponse(responseData)
