@@ -195,7 +195,7 @@ class UserProfile extends React.Component {
     render() {
         let myNotes;
 
-        if (this.state.is_WL_available) {
+        if (localStorage.getItem('is_WL') == 1) {
             myNotes = <span>Your WaitList is now available, please check the table on the button of this page to add it to Reservation or Cancel it!</span>;
         } else {
             myNotes = <span>Your WaitList is now unavailable</span>;
