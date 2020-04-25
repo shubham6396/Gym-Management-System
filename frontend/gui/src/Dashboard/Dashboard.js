@@ -164,7 +164,27 @@ class GymTableView extends React.Component {
      });
 
   };
-    
+
+  addWL = (record) => {
+      localStorage.setItem('is_WL', 1);
+
+      swal("Your Reservation " + record.start_time + " is now added to WL!");
+
+      localStorage.setItem('sportName', this.props.data.selected_sport_name);
+      localStorage.setItem('areaName', record.area_name);
+      localStorage.setItem('equipmentName', record.equipment);
+      localStorage.setItem('reservationDate', new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate()+1));
+      localStorage.setItem('startTime', record.start_time);
+      localStorage.setItem('endTime', record.end_time);
+
+      localStorage.setItem('areaId', record.area_id);
+      localStorage.setItem('equipmentId', record.equipment_id);
+      localStorage.setItem('sportId', record.sport_id);
+      localStorage.setItem('timeSlotId', record.time_slot_id);
+
+      console.log(record);
+  };
+
   render() {
     const { selectedRowKeysArea } = this.state.selectedRowKeysArea;
     const rowSelectionArea = {
@@ -206,7 +226,7 @@ class GymTableView extends React.Component {
                         render={(text, record) => (
                           <span>
                             <Button type = "primary" style={{ marginRight: 4}} onClick={() => this.addReservation.bind(this)(record)}>Reserve</Button>
-                            <Button type = "primary" style={{ marginRight: 10 }}>WL</Button>
+                            <Button type = "primary" style={{ marginRight: 10}} onClick={() => this.addWL.bind(this)(record)}>WL</Button>
                           </span>
                         )}
                       />
