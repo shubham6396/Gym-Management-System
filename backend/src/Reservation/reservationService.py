@@ -5,6 +5,8 @@ from TimeSlot.models import TimeSlot
 from Area.models import Area
 from Equipment.models import Equipment
 from Sport.models import Sport
+from twilio.rest import Client
+from django.conf import settings
 
 
 import traceback
@@ -106,6 +108,14 @@ def cancelReservation(request):
     try:
         reservationId = request.GET.get("reservationId")
         reservationModel = Reservation.objects.get(reservationId=reservationId)
+        # if reservationModel.waitlist is not None:
+        #     userModel = User.objects.get(usrId=reservationModel.waitlist)
+        #     contactNumber = (userModel.usrContact)
+        #     message_to_broadcast="The reservation slot which you want is now available. Please login to book it."
+        #     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        #     client.messages.create(to=contactNumber,
+        #                            from_=settings.TWILIO_NUMBER,
+        #                            body=message_to_broadcast)
         reservationModel.delete()
         responseData = {"Status": "Success", "reservationId": reservationId}
         return responseData

@@ -21,5 +21,12 @@ class TimeSlotTestCase(TestCase):
         request = self.factory.get('/timeslot/getAllTimeSlot', ids)
         response = getAllTimeSlots(request)
         resp_dict = json.loads(response.content)
-        print(resp_dict)
-        self.assertEqual(len(resp_dict['TimeSlots']), 2)
+        self.assertEqual(len(resp_dict['TimeSlots']), 3)
+
+    def test_addWaitlist(self):
+        print("testing add waitlist")
+        ids={'reservationId':1,'usrId':30}
+        request=self.factory.get('/timeslot/waitlist',ids)
+        response=addWaitlist(request)
+        reservationModel = Reservation.objects.get(reservationId=1)
+        self.assertEqual( reservationModel.waitlist, 30)

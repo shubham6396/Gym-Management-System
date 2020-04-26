@@ -96,9 +96,6 @@ onFinish = values => {
     render() {
         return (
             <div>
-                 <h1 style = {h_styles}><b>Welcome to our Gym System</b></h1>
-                 <h2 style = {h_styles}><b>Lead a healthy life with us ! !</b></h2>
-                 <Divider/>
 
             <div className="card-container" style={{marginTop: "30px"}}>
             <Tabs defaultActiveKey="1" onChange={callback} type="card" >
