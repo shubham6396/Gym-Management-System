@@ -11,24 +11,49 @@
   color: #fff;
 }
 
-.title {
+.title1 {
   text-align: center;
   font-size: 18pt;
   font-weight: bold;
   margin-top: 80px;
 }
 
+.textbox1 {
+  text-align: left;
+  font-size: 12pt;
+  color: #fff;
+  margin-top: 30px;
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+.title {
+  text-align: center;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
 .textbox {
   text-align: left;
   font-size: 12pt;
   color: #fff;
-  margin-left: 70px;
-  margin-right: 70px;
-  margin-top: 30px;
+  width: 500px;
+  margin-top: 80px;
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
 .imgbox {
-  height: 50%;
-  width: 50%;
-  margin-left: 25%;
+  margin-top: 80px;
+  height: 350px;
+  width: 350px;
+  border-radius: 50%;
+  margin-right: 150px;
+  margin-left: auto;
+  border:1px solid #fff;
+}
+
+.container {
+  display: inline-flex;
+  flex-direction: row;
 }
