@@ -1,17 +1,25 @@
 .card-container > .ant-tabs-card > .ant-tabs-content {
   height: 40%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: -16px;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
   //background: #eeeeee;
   background-color: #5b6467;
-  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
+  background-image: url("../images/login_students.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 60px;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar {
   border-color: #eeeeee;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
@@ -27,4 +35,16 @@
   //background: #eeeeee;
 
 
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.login {
+  margin-top: 10.5px;
+  height: 50%;
+  padding: 60px;
 }

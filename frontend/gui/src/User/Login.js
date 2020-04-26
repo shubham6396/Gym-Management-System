@@ -12,8 +12,7 @@ import * as actions from './store/Actions/AuthorizeUser'
 import { Spin, Divider } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
-import './Tabs.css'
-
+import './Tabs.css';
 
 const { TabPane } = Tabs;
 
@@ -90,14 +89,9 @@ class LoginForm extends React.Component{
 
   render() {
 
-
     return (
-
-            <div>
-                 <h1 style = {h_styles}><b>Welcome to our Gym System</b></h1>
-                 <h2 style = {h_styles}><b>Lead a healthy life with us ! !</b></h2>
-                 <Divider/>
-
+        <div>
+            <h1 style = {h_styles}><b>Welcome to our Gym System !</b></h1>
             <div className="card-container" style={{marginTop: "30px"}}>
             <Tabs defaultActiveKey="1" onChange={callback} type="card" >
                 <TabPane tab="Student" key="1">
