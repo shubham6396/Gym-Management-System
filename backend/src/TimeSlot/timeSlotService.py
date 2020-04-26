@@ -29,22 +29,25 @@ def getAllTimeSlots(request):
         print(timeSlotId)
         timeSlotIdWaitlistFull=[]
         reservationId_list=[]
+        a = {}
         for i in range (0,len(timeSlotId)):
-            reservationId = Reservation.objects.all().values('reservationId').filter(reservationDate=date_string, timeSlotId=timeSlotId[i],waitlist=None)
+            reservationId = Reservation.objects.all().values('reservationId').filter(reservationDate=date_string, areaId=areaId, equipmentId=equipmentId, timeSlotId=timeSlotId[i], waitlist=None)
+            equipmentId = equipmentId
             if len(reservationId)!=0:
-                a = {}
+
                 b=list(reservationId)
                 print(b)
-                a["TimeSlotId"]=timeSlotId[i]
-                a["ReservationId"]=b[0]['reservationId']
-                reservationId_list.append(a)
+
+                a[timeSlotId[i]]=b[0]['reservationId']
+
+                #reservationId_list.append(a)
             else:
                 timeSlotIdWaitlistFull.append(timeSlotId[i])
 
-        timeSlotAvaiable = TimeSlot.objects.exclude(timeSlotId__in=timeSlotIdWaitlistFull).all().values()
-        timeSlotAvaiable_list=list(timeSlotAvaiable)
-        responseData["reservationId"]=reservationId_list
-        responseData["TimeSlots"] = timeSlotAvaiable_list
+        timeSlotAvailable = TimeSlot.objects.exclude(timeSlotId__in=timeSlotIdWaitlistFull).all().values()
+        timeSlotAvailable_list=list(timeSlotAvailable)
+        responseData["reservationId"]=a
+        responseData["TimeSlots"] = timeSlotAvailable_list
         responseData["Status"] = "Success"
 
         return responseData
@@ -56,13 +59,13 @@ def getAllTimeSlots(request):
         return data
 
 
-def addWailist(request):
+def addWaitlist(request):
     try:
         responseData={}
-        userId = request.GET.get("userId")
+        usrId = request.GET.get("usrId")
         reservationId = request.GET.get("reservationId")
         reservationModel=Reservation.objects.get(reservationId=reservationId)
-        reservationModel.waitlist=userId
+        reservationModel.waitlist=usrId
         reservationModel.save()
         timeSlotId = reservationModel.timeSlotId
         print(timeSlotId)

@@ -17,7 +17,7 @@ def getAllTimeSlots(request):
 
 def addWaitlist(request):
     try:
-        responseData = timeSlotService.addWailist(request)
+        responseData = timeSlotService.addWaitlist(request)
         if responseData is None:
             responseData["Status"] = "Failed"
 

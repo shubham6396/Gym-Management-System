@@ -116,10 +116,15 @@ class GymTableView extends React.Component {
                   })
               }
 
+
+
               this.setState({
                   timeSlotData: data,
                   visible: true,
+                  reservationData: res.data.reservationId
               });
+
+              console.log(this.state)
 
           });
       }
@@ -166,9 +171,34 @@ class GymTableView extends React.Component {
   };
 
   addWL = (record) => {
-      localStorage.setItem('is_WL', 1);
 
-      swal("Your Reservation " + record.start_time + " is now added to WL!");
+      const usrId = localStorage.getItem('token');
+      const reservationId = this.state.reservationData[record.time_slot_id];
+
+      swal({
+       title: "Are you sure you want to add this slot to your Waitlist?",
+       icon: "warning",
+       buttons: ["No, I'm not Sure", "Yes!"]
+        }).then((willDone) => {
+       if (willDone) {
+           swal(record.area_name+" and "+record.equipment+" has been added to your Waitlist for time slot "+record.start_time, {icon: "success",}).then(value => {
+               axios.get('http://localhost:8000/timeslot/waitlist?usrId='+ usrId + '&reservationId=' + reservationId).then(res =>{
+
+                        this.setState({
+                            visible: false,
+
+                       });
+
+                       }).catch(err=> console.log(err));
+                   });
+           }
+       else{
+         swal("Slot not added to your Waitlist");
+
+       }
+
+     });
+      localStorage.setItem('is_WL', 1);
 
       localStorage.setItem('sportName', this.props.data.selected_sport_name);
       localStorage.setItem('areaName', record.area_name);
@@ -224,9 +254,17 @@ class GymTableView extends React.Component {
                         title="Action"
                         key="action"
                         render={(text, record) => (
+                            console.log(record.sport_id),
                           <span>
-                            <Button type = "primary" style={{ marginRight: 4}} onClick={() => this.addReservation.bind(this)(record)}>Reserve</Button>
-                            <Button type = "primary" style={{ marginRight: 10}} onClick={() => this.addWL.bind(this)(record)}>WL</Button>
+
+                              {
+
+                                  record.time_slot_id in this.state.reservationData ?
+                                  null
+                                      :
+                                      <Button type="primary" style={{marginRight: 4}} onClick={() => this.addReservation.bind(this)(record)}>Reserve</Button>
+                              }
+                              <Button type = "primary" style={{ marginRight: 10}} onClick={() => this.addWL.bind(this)(record)}>WL</Button>
                           </span>
                         )}
                       />
