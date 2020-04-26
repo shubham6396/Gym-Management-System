@@ -260,11 +260,11 @@ class GymTableView extends React.Component {
                               {
 
                                   record.time_slot_id in this.state.reservationData ?
-                                  null
+                                  <Button type = "primary" style={{ marginRight: 10}} onClick={() => this.addWL.bind(this)(record)}>WL</Button>
                                       :
                                       <Button type="primary" style={{marginRight: 4}} onClick={() => this.addReservation.bind(this)(record)}>Reserve</Button>
                               }
-                              <Button type = "primary" style={{ marginRight: 10}} onClick={() => this.addWL.bind(this)(record)}>WL</Button>
+
                           </span>
                         )}
                       />
