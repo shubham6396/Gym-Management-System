@@ -24,9 +24,9 @@ SECRET_KEY = 'm&%kkj(24sbfy%e)3-pveh#u2=)(w0lr4&%8)+ds3n5u)p6_p1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TWILIO_ACCOUNT_SID = "ACe4300e205068d537f18d3aa693f4189d"
-TWILIO_AUTH_TOKEN = "3e7973d8fd30bab122cbfb2a83026822"
-TWILIO_NUMBER = "+12055572535"
+TWILIO_ACCOUNT_SID = ""
+TWILIO_AUTH_TOKEN = ""
+TWILIO_NUMBER = "+"
 SMS_BROADCAST_TO_NUMBERS = [
     "", # use the format +19735551234
     "",
@@ -111,8 +111,8 @@ else:
             'NAME': 'gym',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'USER': 'ssdi_user',
-            'PASSWORD': 'ssdi123#',
+            'USER': 
+            'PASSWORD':
         }}
 
 
